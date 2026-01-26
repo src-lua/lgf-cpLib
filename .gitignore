@@ -1,6 +1,8 @@
 .vscode
 .exe
 
+examples/*
+
 contents.tex
 notebook.aux
 notebook.log
