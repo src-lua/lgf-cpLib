@@ -7,7 +7,8 @@ using namespace std;
  * Complexidade: O(log N) para update e query.
  * Memória: O(4*N)
  * Requisitos:
- * - NODE deve ter: static merge(L, R), apply(TAG, L, R) e construtor identidade.
+ * - NODE deve ter: static merge(L, R), apply(TAG, L, R) e
+ *   construtor identidade.
  * - TAG deve ter: compose(TAG) e construtor identidade.
  */
 
@@ -41,7 +42,8 @@ struct LazySegmentTree {
 
     LazySegmentTree(int n) : N(n), seg(4 * n), lazy(4 * n) {}
 
-    LazySegmentTree(const vector<int>& v) : N(v.size()), seg(4 * v.size()), lazy(4 * v.size()) {
+    LazySegmentTree(const vector<int>& v)
+        : N(v.size()), seg(4 * v.size()), lazy(4 * v.size()) {
         build(1, 0, N - 1, v);
     }
 

@@ -70,7 +70,8 @@ struct FenwickTree2DSparse {
     }
 
     inline int get_y(int i, int y) {
-        return upper_bound(coord[i].begin(), coord[i].end(), y) - coord[i].begin();
+        return upper_bound(coord[i].begin(), coord[i].end(), y)
+               - coord[i].begin();
     }
 
     void update(int x, int y, NODE v) {
@@ -92,6 +93,7 @@ struct FenwickTree2DSparse {
     }
 
     NODE query(int x1, int y1, int x2, int y2) {
-        return query(x2, y2) - query(x1 - 1, y2) - query(x2, y1 - 1) + query(x1 - 1, y1 - 1);
+        return query(x2, y2) - query(x1 - 1, y2)
+               - query(x2, y1 - 1) + query(x1 - 1, y1 - 1);
     }
 };

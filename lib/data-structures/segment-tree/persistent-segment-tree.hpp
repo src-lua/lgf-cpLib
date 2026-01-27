@@ -7,7 +7,8 @@ using namespace std;
  * Complexidade: O(log N) por update e query.
  * Memória: O(Q log N) onde Q é o número de updates.
  * Requisitos:
- * - NODE deve ter: static merge(const NODE&, const NODE&) e construtor identidade.
+ * - NODE deve ter: static merge(const NODE&, const NODE&) e
+ *   construtor identidade.
  */
 
 /* --- Exemplo de NODE (Soma) ---
@@ -48,12 +49,11 @@ struct PersistentSegmentTree {
         return node;
     }
 
-    // Retorna o índice da nova raiz após o update
     int update(int prev_root, int L, int R, int idx, NODE v) {
         int node = st.size();
         st.push_back(st[prev_root]); 
         if (L == R) {
-            st[node].data = v; // Ou NODE::merge se for incremental
+            st[node].data = NODE::merge(st[node].data, v);
             return node;
         }
         int mid = (L + R) / 2;
@@ -75,6 +75,8 @@ struct PersistentSegmentTree {
     void update(int idx, NODE v) {
         roots.push_back(update(roots.back(), 0, N - 1, idx, v));
     }
-    
-    NODE query(int version, int l, int r) { return query(roots[version], 0, N - 1, l, r); }
+
+    NODE query(int version, int l, int r) {
+        return query(roots[version], 0, N - 1, l, r);
+    }
 };

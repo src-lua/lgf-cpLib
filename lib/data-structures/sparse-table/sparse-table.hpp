@@ -38,7 +38,8 @@ struct SparseTable {
         for (int i = 0; i < N; i++) st[0][i] = NODE(v[i], i);
         for (int j = 1; j <= K; j++)
             for (int i = 0; i + (1 << j) <= N; i++)
-                st[j][i] = NODE::merge(st[j - 1][i], st[j - 1][i + (1 << (j - 1))]);
+                st[j][i] = NODE::merge(st[j - 1][i],
+                                       st[j - 1][i + (1 << (j - 1))]);
     }
 
     NODE query(int l, int r) {

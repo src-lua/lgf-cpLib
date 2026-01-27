@@ -111,7 +111,8 @@ struct Matrix2x2Node {
         a[1][0] = a10; a[1][1] = a11;
     }
 
-    static inline Matrix2x2Node merge(const Matrix2x2Node& l, const Matrix2x2Node& r) {
+    static inline Matrix2x2Node merge(const Matrix2x2Node& l,
+                                       const Matrix2x2Node& r) {
         Matrix2x2Node res;
         for(int i = 0; i < 2; i++)
             for(int j = 0; j < 2; j++) {
@@ -156,7 +157,8 @@ struct SumNodeLazy {
     ll val = 0;
     SumNodeLazy(ll v = 0) : val(v) {}
 
-    static inline SumNodeLazy merge(const SumNodeLazy& l, const SumNodeLazy& r) {
+    static inline SumNodeLazy merge(const SumNodeLazy& l,
+                                     const SumNodeLazy& r) {
         return SumNodeLazy(l.val + r.val);
     }
 
@@ -186,8 +188,10 @@ struct LinearFunctionNode {
 
     LinearFunctionNode(ll _a = 1, ll _b = 0) : a(_a % MOD), b(_b % MOD) {}
 
-    // Composição: (f ∘ g)(x) = f(g(x)) = f(gx + h) = a(gx + h) + b = (ag)x + (ah + b)
-    static inline LinearFunctionNode merge(const LinearFunctionNode& f, const LinearFunctionNode& g) {
+    // Composição: (f ∘ g)(x) = f(g(x)) = f(gx + h) = a(gx + h) + b
+    // = (ag)x + (ah + b)
+    static inline LinearFunctionNode merge(const LinearFunctionNode& f,
+                                            const LinearFunctionNode& g) {
         return LinearFunctionNode(
             (f.a * g.a) % MOD,
             (f.a * g.b + f.b) % MOD
@@ -207,7 +211,8 @@ struct AffineFunctionNode {
 
     AffineFunctionNode(ll m = 1, ll a = 0) : mul(m % MOD), add(a % MOD) {}
 
-    static inline AffineFunctionNode merge(const AffineFunctionNode& l, const AffineFunctionNode& r) {
+    static inline AffineFunctionNode merge(const AffineFunctionNode& l,
+                                            const AffineFunctionNode& r) {
         return AffineFunctionNode(
             (l.mul * r.mul) % MOD,
             (l.mul * r.add + l.add) % MOD

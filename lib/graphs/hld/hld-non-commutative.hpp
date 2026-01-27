@@ -29,8 +29,8 @@ struct HLD {
     vector<int> p, sz, d, head, pos, tour;
     SegTree<DoubleNode<NODE>> st; 
 
-    HLD(const vector<vector<int>>& adj, const vector<NODE>& initial_vals, int root = 0) 
-        : n(adj.size()), t(0), p(n), sz(n), d(n), head(n), pos(n), tour(n), st(n) {
+    HLD(const vector<vector<int>>& adj, const vector<NODE>& vals, int root = 0)
+     : n(adj.size()), t(0), p(n), sz(n), d(n), head(n), pos(n), tour(n), st(n) {
         
         vector<vector<int>> g = adj;
         d[root] = 0, p[root] = root;
@@ -71,7 +71,8 @@ struct HLD {
         dfs_hld(dfs_hld, root);
 
         vector<DoubleNode<NODE>> base(n);
-        for(int i = 0; i < n; i++) base[pos[i]] = DoubleNode<NODE>(initial_vals[i]);
+        for(int i = 0; i < n; i++)
+            base[pos[i]] = DoubleNode<NODE>(vals[i]);
         st = SegTree<DoubleNode<NODE>>(base);
     }
 

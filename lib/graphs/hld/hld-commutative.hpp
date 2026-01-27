@@ -14,12 +14,12 @@ struct HLD {
     vector<int> p, sz, d, head, pos;
     SegTree<NODE> st; 
 
-    HLD(const vector<vector<int>>& adj, int root = 0) 
+    HLD(const vector<vector<int>>& adj, const vector<NODE>& vals, int root = 0)
         : n(adj.size()), t(0), p(n), sz(n), d(n), head(n), pos(n), st(n) {
-        
+
         vector<vector<int>> g = adj;
         d[root] = 0, p[root] = root;
-        
+
         auto dfs_sz = [&](auto self, int u) -> void {
             sz[u] = 1;
             int best_v = -1, max_sz = -1;
@@ -56,6 +56,11 @@ struct HLD {
         dfs_sz(dfs_sz, root);
         head[root] = root;
         dfs_hld(dfs_hld, root);
+
+        vector<NODE> base(n);
+        for(int i = 0; i < n; i++)
+            base[pos[i]] = vals[i];
+        st = SegTree<NODE>(base);
     }
 
     void update(int u, const NODE& val) {

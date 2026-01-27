@@ -36,7 +36,7 @@ struct HLD {
     vector<int> p, sz, d, head, pos;
     LazySegmentTree<DoubleNode<NODE>, TAG> st; 
 
-    HLD(const vector<vector<int>>& adj, const vector<NODE>& initial_vals, int root = 0) 
+    HLD(const vector<vector<int>>& adj, const vector<NODE>& vals, int root = 0) 
         : n(adj.size()), t(0), p(n), sz(n), d(n), head(n), pos(n), st(n) {
         
         vector<vector<int>> g = adj;
@@ -77,7 +77,7 @@ struct HLD {
         dfs_hld(dfs_hld, root);
 
         vector<DoubleNode<NODE>> base(n);
-        for(int i = 0; i < n; i++) base[pos[i]] = DoubleNode<NODE>(initial_vals[i]);
+        for(int i = 0; i < n; i++) base[pos[i]] = DoubleNode<NODE>(vals[i]);
         st = LazySegmentTree<DoubleNode<NODE>, TAG>(base);
     }
 

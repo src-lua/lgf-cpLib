@@ -7,7 +7,8 @@ using namespace std;
  * Complexidade: O(log N) para update e query.
  * Memória: O(N)
  * Requisitos:
- * - NODE deve ter: operator+=, operator- (para range query) e construtor default.
+ * - NODE deve ter: operator+=, operator- (para range query) e
+ *   construtor default.
  */
 
 /* --- Exemplo de NODE (Soma) ---

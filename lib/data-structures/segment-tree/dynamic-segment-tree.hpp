@@ -8,8 +8,10 @@ using ll = long long int;
  * Complexidade: O(log N) por operação.
  * Memória: O(Q log N) onde Q é o número de operações.
  * Requisitos:
- * - NODE deve ter: static merge(const NODE&, const NODE&), apply(const TAG&, ll, ll) e construtor identidade.
- * - TAG deve ter: apply(const TAG&), campo 'has' (bool) e construtor identidade.
+ * - NODE deve ter: static merge(const NODE&, const NODE&),
+ *   apply(const TAG&, ll, ll) e construtor identidade.
+ * - TAG deve ter: apply(const TAG&), campo 'has' (bool) e
+ *   construtor identidade.
  */
 
 /* --- Exemplo de NODE e TAG ---
