@@ -10,7 +10,7 @@ using namespace std;
  * Uso:
  *   g++ hash.cpp -o hash 
  *   ./hash < code.cpp
-*/
+ */
 
 string getHash(string s){
 	ofstream("z.cpp") << s;
