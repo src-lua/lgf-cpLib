@@ -47,42 +47,28 @@ def collect_files(directory, prefix=""):
 
     return files
 
-# Define sections and their directories
-sections = {
-    'Data Structures': [
-        ('data-structures/dsu.hpp', 'Disjoint Set Union (DSU)'),
-        ('data-structures/fenwick-tree', 'recursive'),
-        ('data-structures/segment-tree', 'recursive'),
-        ('data-structures/sparse-table', 'recursive'),
-    ],
-    'Graphs': [
-        ('graphs/lca.hpp', 'Lowest Common Ancestor (LCA)'),
-        ('graphs/hld', 'recursive'),
-    ],
-    'Examples': [
-        ('examples', 'recursive'),
-    ],
-}
+# Automatically discover all directories in lib/
+def get_section_name(directory_name):
+    """Convert directory name to section title"""
+    name = directory_name.replace('-', ' ').replace('_', ' ')
+    return ' '.join(word.capitalize() for word in name.split())
 
-# Generate contents
-for section_name, items in sections.items():
+# Collect all directories in lib/
+try:
+    all_dirs = sorted([d for d in os.listdir(code_dir)
+                       if os.path.isdir(os.path.join(code_dir, d))])
+except FileNotFoundError:
+    all_dirs = []
+
+# Generate contents for each directory
+for directory in all_dirs:
+    section_name = get_section_name(directory)
+    dir_path = os.path.join(code_dir, directory)
+
     print(f'[{section_name}]')
 
-    section_files = []
-    for item in items:
-        if isinstance(item, tuple):
-            path, description = item
-            full_path = os.path.join(code_dir, path)
-
-            if description == 'recursive':
-                # Collect all files recursively from this directory
-                if os.path.isdir(full_path):
-                    files = collect_files(full_path)
-                    section_files.extend(files)
-            else:
-                # Single file
-                if os.path.isfile(full_path):
-                    section_files.append((path, description))
+    # Collect all files recursively from this directory
+    section_files = collect_files(dir_path)
 
     # Print with aligned formatting
     if section_files:

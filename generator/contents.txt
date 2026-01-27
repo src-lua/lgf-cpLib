@@ -11,26 +11,33 @@ $
 # If you add an '@' at the end of a file title, that file will not be hashed, even if use_hash is true.
 
 [Data Structures]
-../lib/data-structures/dsu.hpp                                   $ Disjoint Set Union (DSU)
-../lib/data-structures/fenwick-tree/dynamic-fenwick-tree2d.hpp   $ Dynamic Fenwick Tree2d
-../lib/data-structures/fenwick-tree/fenwick-tree.hpp             $ Fenwick Tree
-../lib/data-structures/fenwick-tree/fenwick-tree2d.hpp           $ Fenwick Tree2d
+../lib/data-structures/dsu.hpp                                   $ Dsu
+../lib/data-structures/segment-tree/segment-tree.hpp             $ Segment Tree
+../lib/data-structures/segment-tree/lazy-segment-tree.hpp        $ Lazy Segment Tree
 ../lib/data-structures/segment-tree/dual-segment-tree.hpp        $ Dual Segment Tree
 ../lib/data-structures/segment-tree/dynamic-segment-tree.hpp     $ Dynamic Segment Tree
-../lib/data-structures/segment-tree/lazy-segment-tree.hpp        $ Lazy Segment Tree
 ../lib/data-structures/segment-tree/persistent-segment-tree.hpp  $ Persistent Segment Tree
-../lib/data-structures/segment-tree/segment-tree.hpp             $ Segment Tree
-../lib/data-structures/sparse-table/disjoint-sparse-table.hpp    $ Disjoint Sparse Table
+../lib/data-structures/fenwick-tree/fenwick-tree.hpp             $ Fenwick Tree
+../lib/data-structures/fenwick-tree/fenwick-tree2d.hpp           $ Fenwick Tree2d
+../lib/data-structures/fenwick-tree/dynamic-fenwick-tree2d.hpp   $ Dynamic Fenwick Tree2d
 ../lib/data-structures/sparse-table/sparse-table.hpp             $ Sparse Table
-
-[Graphs]
-../lib/graphs/lca.hpp                           $ Lowest Common Ancestor (LCA)
-../lib/graphs/hld/hld-commutative-lazy.hpp      $ Hld Commutative Lazy
-../lib/graphs/hld/hld-commutative.hpp           $ Hld Commutative
-../lib/graphs/hld/hld-non-commutative-lazy.hpp  $ Hld Non Commutative Lazy
-../lib/graphs/hld/hld-non-commutative.hpp       $ Hld Non Commutative
+../lib/data-structures/sparse-table/disjoint-sparse-table.hpp    $ Disjoint Sparse Table
 
 #[Examples]
 #../lib/examples/nodes.hpp  $ Nodes
 #../lib/examples/tags.hpp   $ Tags
+
+[Graphs]
+../lib/graphs/hld/hld-commutative.hpp           $ Hld Commutative
+../lib/graphs/hld/hld-commutative-lazy.hpp      $ Hld Commutative Lazy
+../lib/graphs/hld/hld-non-commutative.hpp       $ Hld Non Commutative
+../lib/graphs/hld/hld-non-commutative-lazy.hpp  $ Hld Non Commutative Lazy
+../lib/graphs/lca.hpp                           $ Lca
+
+[String]
+../lib/string/manacher.hpp  $ Manacher
+
+[Others]
+../lib/others/checker.cpp  $ Checker
+../lib/others/gen.cpp      $ Gen
 

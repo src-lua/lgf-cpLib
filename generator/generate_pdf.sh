@@ -3,7 +3,7 @@
 set -e
 
 echo "=== Compilando gerador LaTeX ==="
-g++ -std=c++17 -o generate_latex generate_latex.cpp -O2 -lcrypto
+g++ -std=c++17 -o generate_latex generate_latex.cpp -O2 -lcrypto -Wno-deprecated-declarations
 
 echo "=== Gerando contents.tex ==="
 ./generate_latex
