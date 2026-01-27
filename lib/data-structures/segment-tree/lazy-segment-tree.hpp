@@ -12,8 +12,7 @@ using namespace std;
  * - TAG deve ter: compose(TAG) e construtor identidade.
  */
 
-// --- Exemplo de NODE e TAG (Soma e Multiplicacao com Modulo) ---
-/*
+/* --- Exemplo de NODE e TAG (Soma e Multiplicacao com Modulo) ---
 struct Tag {
     ll mul = 1, add = 0;
     void inline compose(const Tag& t) {

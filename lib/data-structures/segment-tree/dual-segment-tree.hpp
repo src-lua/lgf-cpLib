@@ -12,8 +12,7 @@ using namespace std;
  * Exemplo de uso: DualSegTree<ll, MyTag> st(v);
  */
 
-// --- Exemplo de TAG (Soma e Multiplicacao com Modulo) ---
-/* 
+/* --- Exemplo de TAG (Soma e Multiplicacao com Modulo) ---
 struct Tag {
     ll mul = 1, add = 0;
     void compose(const Tag& t) {

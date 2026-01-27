@@ -1,8 +1,22 @@
 .vscode
 .exe
 
-examples/*
+# Generator artifacts
+generator/generate_latex
+generator/contents.tex
+generator/hash/md5tool
+generator/*.aux
+generator/*.log
+generator/*.out
+generator/*.toc
+generator/*.fdb_latexmk
+generator/*.fls
+generator/*.xdv
+generator/*.listing
+generator/*.synctex.gz
+generator/temp/
 
+# Legacy (keep for now)
 contents.tex
 notebook.aux
 notebook.log

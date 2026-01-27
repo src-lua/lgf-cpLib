@@ -9,8 +9,7 @@ using namespace std;
  * - NODE deve ter: static merge(L, R), apply(V), e construtor identidade.
  */
 
-// --- Exemplo de NODE (Soma com Update de Substituicao) ---
-/*
+/* --- Exemplo de NODE (Soma com Update de Substituicao) ---
 struct Node {
     ll val = 0;
     Node(ll v = 0) : val(v) {}

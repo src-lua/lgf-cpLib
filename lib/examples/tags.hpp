@@ -3,20 +3,20 @@
 using namespace std;
 using ll = long long int;
 
-/* Coleção de Tags para Lazy Propagation
- * Copie o Tag que você precisa para o seu código.
+/* Colecao de Tags para Lazy Propagation
+ * Copie o Tag que voce precisa para o seu codigo.
  * Requisitos: Cada Tag deve ter compose() e construtor identidade.
- * Tag.compose(other): Aplica other sobre this (this = this ∘ other).
+ * Tag.compose(other): Aplica other sobre this (this = this o other).
  */
 
 const ll MOD = 1e9 + 7;
 
 // ============================================================================
-// TAGS BÁSICOS
+// TAGS BASICOS
 // ============================================================================
 
 // --- Add Tag (Range Add) ---
-// Operação: a[i] += x para todo i em [l, r]
+// Operacao: a[i] += x para todo i em [l, r]
 struct AddTag {
     ll add = 0;
 
@@ -31,7 +31,7 @@ struct AddTag {
 };
 
 // --- Set Tag (Range Assignment) ---
-// Operação: a[i] = x para todo i em [l, r]
+// Operacao: a[i] = x para todo i em [l, r]
 struct SetTag {
     ll val = 0;
     bool has = false;
@@ -50,7 +50,7 @@ struct SetTag {
 };
 
 // --- Multiply Tag (Range Multiplication) ---
-// Operação: a[i] *= x para todo i em [l, r]
+// Operacao: a[i] *= x para todo i em [l, r]
 struct MultiplyTag {
     ll mul = 1;
 
@@ -69,12 +69,12 @@ struct MultiplyTag {
 // ============================================================================
 
 // --- Affine Tag (ax + b) - Transformação Afim ---
-// Operação: a[i] = a[i] * mul + add
+// Operacao: a[i] = a[i] * mul + add
 // MUITO COMUM em problemas de lazy propagation!
 struct AffineTag {
     ll mul = 1, add = 0;
 
-    // Composição: (f ∘ g)(x) onde f = this, g = t
+    // Composicao: (f o g)(x) onde f = this, g = t
     // f(g(x)) = f(x*g.mul + g.add) = (x*g.mul + g.add)*f.mul + f.add
     //         = x*(g.mul*f.mul) + (g.add*f.mul + f.add)
     void compose(const AffineTag& t) {
@@ -95,9 +95,9 @@ struct SetAddTag {
     ll add_val = 0;
     bool has_set = false;
 
-    // Composição correta:
+    // Composicao correta:
     // Se t tem set: descarta tudo e usa set de t (depois aplica add)
-    // Se t não tem set: aplica add de t sobre o que já existe
+    // Se t nao tem set: aplica add de t sobre o que ja existe
     void compose(const SetAddTag& t) {
         if(t.has_set) {
             set_val = t.set_val;
@@ -123,9 +123,9 @@ struct SetAddTag {
 };
 
 // --- Flip/Toggle Tag (para bits) ---
-// Operação: a[i] ^= 1 (inverte bits)
+// Operacao: a[i] ^= 1 (inverte bits)
 struct FlipTag {
-    int flip = 0; // 0 = não faz nada, 1 = inverte
+    int flip = 0; // 0 = nao faz nada, 1 = inverte
 
     void compose(const FlipTag& t) {
         flip ^= t.flip;
@@ -138,18 +138,18 @@ struct FlipTag {
 };
 
 // ============================================================================
-// TAGS AVANÇADOS
+// TAGS AVANCADOS
 // ============================================================================
 
-// --- Linear Function Tag (Composição de funções f(x) = ax + b) ---
-// Usado em HLD não-comutativo, DP com funções lineares, etc.
+// --- Linear Function Tag (Composicao de funções f(x) = ax + b) ---
+// Usado em HLD nao-comutativo, DP com funções lineares, etc.
 // MUITO IMPORTANTE para problemas de composição de funções!
 struct LinearFunctionTag {
     ll a = 1, b = 0; // f(x) = ax + b
 
     LinearFunctionTag(ll _a = 1, ll _b = 0) : a(_a % MOD), b(_b % MOD) {}
 
-    // Composição: (f ∘ g)(x) = f(g(x))
+    // Composicao: (f o g)(x) = f(g(x))
     // Se f = this = (a, b) e g = t = (c, d)
     // f(g(x)) = f(cx + d) = a(cx + d) + b = (ac)x + (ad + b)
     void compose(const LinearFunctionTag& t) {
@@ -164,7 +164,7 @@ struct LinearFunctionTag {
 };
 
 // --- Matrix 2x2 Tag (para transformações matriciais) ---
-// Útil para problemas de Fibonacci, recorrências lineares
+// Util para problemas de Fibonacci, recorrências lineares
 struct Matrix2x2Tag {
     ll m[2][2];
 
@@ -224,12 +224,12 @@ LazySegmentTree<SumNodeLazy, AffineTag> st(n);
 st.update(l, r, AffineTag(2, 3)); // a[i] = 2*a[i] + 3
 auto result = st.query(l, r);
 
-// --- Composição de Funções Lineares ---
+// --- Composicao de Funções Lineares ---
 // Problema: Aplicar sequência de funções f1, f2, ..., fk em um ponto x
 LazySegmentTree<LinearFunctionNode, LinearFunctionTag> st(n);
 st.update(i, i, LinearFunctionTag(2, 3)); // f(x) = 2x + 3
 st.update(j, j, LinearFunctionTag(4, 1)); // g(x) = 4x + 1
-// Query [i, j] retorna a composição f_i ∘ f_{i+1} ∘ ... ∘ f_j
+// Query [i, j] retorna a composição f_i o f_{i+1} o ... o f_j
 auto composed = st.query(l, r);
 ll result = composed.eval(x);
 
@@ -239,7 +239,7 @@ SetAddTag t1; t1.has_set = true; t1.set_val = 5; // a[i] = 5
 st.update(l, r, t1);
 st.update(l, r, AddTag{3}); // a[i] += 3 (agora a[i] = 8)
 
-// --- HLD não-comutativo com funções ---
+// --- HLD nao-comutativo com funções ---
 // lib/graphs/hld/hld-non-commutative-lazy.hpp
 HLD<LinearFunctionNode, LinearFunctionTag> hld(adj, initial_vals);
 hld.update_path(u, v, LinearFunctionTag(2, 1)); // aplica f(x)=2x+1 no caminho

@@ -3,14 +3,14 @@
 using namespace std;
 using ll = long long int;
 
-/* Coleção de Nodes para Segment Tree / Sparse Table
- * Copie o Node que você precisa para o seu código.
+/* Colecao de Nodes para Segment Tree / Sparse Table
+ * Copie o Node que voce precisa para o seu codigo.
  * Requisitos: Cada Node deve ter static merge() e construtor identidade.
  * Para Lazy: Node deve ter apply(TAG, l, r).
  */
 
 // ============================================================================
-// NODES BÁSICOS (Idempotentes - para Sparse Table também)
+// NODES BASICOS (Idempotentes - para Sparse Table tambem)
 // ============================================================================
 
 // --- Sum Node (Soma) ---
@@ -28,7 +28,7 @@ struct SumNode {
     }
 };
 
-// --- Min Node com Índice ---
+// --- Min Node com Indice ---
 struct MinNode {
     ll val = LLONG_MAX;
     int pos = -1;
@@ -39,7 +39,7 @@ struct MinNode {
     }
 };
 
-// --- Max Node com Índice ---
+// --- Max Node com Indice ---
 struct MaxNode {
     ll val = LLONG_MIN;
     int pos = -1;
@@ -91,7 +91,7 @@ struct ORNode {
 };
 
 // ============================================================================
-// NODES AVANÇADOS
+// NODES AVANCADOS
 // ============================================================================
 
 // --- Matrix 2x2 Node (para Fibonacci, recorrências lineares) ---
@@ -125,7 +125,7 @@ struct Matrix2x2Node {
 };
 
 // --- Range Sum com contador ---
-// Útil para queries tipo: "quantos elementos < x no range [l,r]"
+// Util para queries tipo: "quantos elementos < x no range [l,r]"
 struct CountNode {
     ll sum = 0;
     int cnt = 0;
@@ -188,7 +188,7 @@ struct LinearFunctionNode {
 
     LinearFunctionNode(ll _a = 1, ll _b = 0) : a(_a % MOD), b(_b % MOD) {}
 
-    // Composição: (f ∘ g)(x) = f(g(x)) = f(gx + h) = a(gx + h) + b
+    // Composicao: (f o g)(x) = f(g(x)) = f(gx + h) = a(gx + h) + b
     // = (ag)x + (ah + b)
     static inline LinearFunctionNode merge(const LinearFunctionNode& f,
                                             const LinearFunctionNode& g) {

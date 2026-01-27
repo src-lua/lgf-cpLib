@@ -1,95 +1,228 @@
-\documentclass[10pt]{article}
-\usepackage[left=0.4in,right=0.4in,top=0.7in,bottom=0.4in]{geometry}
+\documentclass[10pt,a4paper]{article}
+\usepackage[left=0.6cm, right=0.6cm, top=0.3cm, bottom=0.6cm, includehead]{geometry}
 \usepackage{hyperref}
 \usepackage{fancyhdr}
 \usepackage{listings}
-\usepackage{xcolor}
+\usepackage[table]{xcolor}
+\usepackage{tcolorbox}
+\usepackage{adjustbox}
+\usepackage{mdframed}
 \usepackage{tocloft}
 \usepackage{pdflscape}
 \usepackage{multicol}
+% JetBrains Mono usando fontspec (requer LuaLaTeX)
+\usepackage{fontspec}
+\setmonofont{JetBrains Mono}[
+  Scale=0.95,
+  Contextuals=Alternate  % Habilita ligatures
+]
+% \usepackage[portuguese]{babel}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{etoolbox}
+\usepackage{needspace}
+\usepackage{booktabs}
 
-\definecolor{RED5}{HTML}{d73a49}
-\definecolor{PURPLE5}{HTML}{6f42c1}
-\definecolor{PURPLE7}{HTML}{4c2889}
-\definecolor{GRAY5}{HTML}{6a737d}
-\definecolor{BLUE8}{HTML}{032f62}
+\newcommand{\university}{Centro de Informática - Universidade Federal de Pernambuco}
+\newcommand{\teamname}{Src-Lua}
 
-\renewcommand*{\ttdefault}{pcr}
+\title{\vspace{-5ex}\Large{\underline{\teamname{} | CIn - UFPE}}}\author{}\date{\vspace{-7ex}\tiny\today}
+
+% Colors of description boxes
+\definecolor{descboxbg}{RGB}{210,220,244}
+\definecolor{descboxfrm}{RGB}{24,79,102}
+\definecolor{blockdescbg}{RGB}{252, 243, 187}
+
+% Code syntax colors (IntelliSense-style)
+\definecolor{RED5}{HTML}{d73a49}      % Keywords
+\definecolor{PURPLE5}{HTML}{6f42c1}   % Functions
+\definecolor{PURPLE7}{HTML}{4c2889}   % Darker purple
+\definecolor{GRAY5}{HTML}{6a737d}     % Comments
+\definecolor{BLUE8}{HTML}{032f62}     % Strings/Numbers
+\definecolor{GREEN5}{HTML}{22863a}    % Types
+\definecolor{TEAL}{HTML}{008080}      % STL types
+\definecolor{ORANGE}{HTML}{d4680a}    % Operators
+
+\graphicspath{{./images/}{./temp/}} % Pastas para buscar imagens
+
+\tcbuselibrary{listings}
+\tcbuselibrary{breakable, skins}
+\renewcommand{\arraystretch}{0.85}
+% \renewcommand*{\ttdefault}{pcr}  % Comentado para usar JetBrains Mono
 \renewcommand\cftsecfont{\fontsize{10}{11}\bfseries}
 \renewcommand\cftsecpagefont{\fontsize{10}{11}\mdseries}
-\renewcommand\cftsubsecfont{\fontsize{7}{8}\mdseries}
-\renewcommand\cftsubsecpagefont{\fontsize{7}{8}\mdseries}
-% \renewcommand\cftsecfont{\fontsize{8}{9}\bfseries}
-% \renewcommand\cftsecpagefont{\fontsize{8}{9}\mdseries}
-% \renewcommand\cftsubsecfont{\fontsize{5}{6}\mdseries}
-% \renewcommand\cftsubsecpagefont{\fontsize{5}{6}\mdseries}
+\renewcommand\cftsubsecfont{\fontsize{8}{9}\mdseries}
+\renewcommand\cftsubsecpagefont{\fontsize{8}{9}\mdseries}
+\renewcommand\cftsubsubsecfont{\fontsize{6}{7}\mdseries}
+\renewcommand\cftsubsubsecpagefont{\fontsize{6}{7}\mdseries}
 \renewcommand\cftsecafterpnum{\vspace{-1ex}}
 \renewcommand\cftsubsecafterpnum{\vspace{-1ex}}
+\renewcommand\cftsubsubsecafterpnum{\vspace{-1.2ex}}
 
 \lstdefinestyle{shared}{
-  belowcaptionskip=1\baselineskip,
-  breaklines=true,
-  xleftmargin=\parindent,
+  belowcaptionskip=0.05\baselineskip,
+  breaklines=false,  % Desabilita quebra de linha automática
+  xleftmargin=0pt,
   showstringspaces=false,
-  % basicstyle=\fontsize{6.5}{6}\ttfamily,
-  basicstyle=\fontsize{7.5}{7}\ttfamily,
+  basicstyle=\fontsize{6.5}{7.5}\selectfont\ttfamily,  % JetBrains Mono 6.2pt
+  columns=fixed,  % Largura fixa para caracteres monoespaçados
+  basewidth=0.5em,  % Largura de cada caractere
 }
 \lstdefinestyle{cpp}{
   style=shared,
   language=C++,
-  keywordstyle=\bfseries\color{RED5},
-  commentstyle=\itshape\color{PURPLE5},
-  identifierstyle=\color{black},
-  stringstyle=\color{BLUE8},
+  % IntelliSense-style colors
+  keywordstyle=\color{RED5},   % Keywords: vermelho negrito
+  commentstyle=\itshape\color{GRAY5},   % Comments: APENAS cinza itálico
+  stringstyle=\color{BLUE8},            % Strings: azul
+  morecomment=[s]{/*}{*/},              % Garantir que /* */ seja comentário
+  morecomment=[l]{//},                  % Garantir que // seja comentário
+  % Tipos STL em teal
+  emph={vector, string, pair, map, set, queue, stack, deque, priority_queue,
+        unordered_map, unordered_set, array, tuple, bitset, list},
+  emphstyle=\color{TEAL},
+  % Funções STL comuns em roxo
+  emph={[2]push_back, pop_back, size, empty, clear, erase, insert, find,
+        lower_bound, upper_bound, sort, reverse, swap, max, min, abs, gcd,
+        make_pair, emplace_back, front, back, top, push, pop, begin, end,
+        merge, query, update, apply, compose},
+  emphstyle={[2]\color{PURPLE5}},
+  % Tipos primitivos em vermelho negrito (como keywords)
+  morekeywords={int, long, bool, char, void, double, float, size_t, ll,
+                nullptr, constexpr, override, final, noexcept, decltype, auto,
+                static, inline, const, typename, template, class, struct,
+                public, private, protected, virtual, explicit},
+  % Números em azul (apenas fora de comentários)
+  literate=
+    *{0}{{{\color{BLUE8}0}}}1
+     {1}{{{\color{BLUE8}1}}}1
+     {2}{{{\color{BLUE8}2}}}1
+     {3}{{{\color{BLUE8}3}}}1
+     {4}{{{\color{BLUE8}4}}}1
+     {5}{{{\color{BLUE8}5}}}1
+     {6}{{{\color{BLUE8}6}}}1
+     {7}{{{\color{BLUE8}7}}}1
+     {8}{{{\color{BLUE8}8}}}1
+     {9}{{{\color{BLUE8}9}}}1,
 }
 \lstdefinestyle{java}{
   style=shared,
   language=Java,
   keywordstyle=\bfseries\color{RED5},
-  commentstyle=\itshape\color{PURPLE5},
+  commentstyle=\itshape\color{GRAY5},
   identifierstyle=\color{black},
   stringstyle=\color{BLUE8},
+  morekeywords={var},
 }
 \lstdefinestyle{py}{
   style=shared,
   language=Python,
   keywordstyle=\bfseries\color{RED5},
-  commentstyle=\itshape\color{PURPLE5},
+  commentstyle=\itshape\color{GRAY5},
+  identifierstyle=\color{black},
+  stringstyle=\color{BLUE8},
+  morekeywords={True, False, None, self},
+}
+\lstdefinestyle{sh}{
+  style=shared,
+  language=bash,
+  keywordstyle=\bfseries\color{RED5},
+  commentstyle=\itshape\color{GRAY5},
   identifierstyle=\color{black},
   stringstyle=\color{BLUE8},
 }
 \lstdefinestyle{txt}{
   style=shared,
 }
-\lstset{escapechar=@}
-
-\pagestyle{fancy}
-\fancyhead[L]{Centro de Informática - Universidade Federal de Pernambuco | Ex-usuários de Python}
-\fancyhead[R]{\thepage}
-\fancyfoot[C]{}
-
-\fancypagestyle{plain}
-{
-\fancyhead[L]{Centro de Informática - Universidade Federal de Pernambuco | Ex-usuários de Python}
-\fancyhead[R]{\thepage}
-\fancyfoot[C]{}
+\lstset{
+  escapechar=@,
+  tabsize=2,
+}
+\tcbset{
+  colback=gray!10,
+  colframe=gray!40,
+  boxrule=0.5pt,
+  arc=2pt,
+  left=3pt,
+  right=3pt,
+  top=3pt,
+  bottom=3pt,
+  boxsep=2pt
 }
 
-\title{\vspace{-4ex}\Large{Ex-usuários de Python | CIn - UFPE}}
-\author{}
-\date{}
+% LATEX DESC - Description boxes
+\newtcblisting{listingframe}[2][]{%
+  enhanced,
+  breakable=true,
+  listing only,
+  listing engine=listings,
+  colback=descboxbg,
+  colframe=descboxfrm,
+  top=-1mm, bottom=-1mm, left=2mm, right=2mm,
+  boxrule=0.6pt,
+  arc=2mm,
+  outer arc=2mm,
+  borderline={0.5pt}{0pt}{descboxfrm},
+  listing options={breaklines, style=shared, #2}
+}
+
+%%% BLOCK_DESC - Inline description callouts %%%
+\newmdenv[
+  backgroundcolor=blockdescbg,
+  linecolor=gray!30,
+  linewidth=0.4pt,
+  roundcorner=4pt,
+  leftmargin=0pt,
+  rightmargin=0pt,
+  innerleftmargin=4pt,
+  innerrightmargin=4pt,
+  innertopmargin=2pt,
+  innerbottommargin=2pt,
+  skipabove=0pt,
+  skipbelow=1pt,
+  font=\fontsize{6}{7}\ttfamily
+]{blockdescenv}
+
+\newcommand{\blockdesc}[1]{%
+  \par\vspace{-5pt}
+  \noindent
+  \begin{adjustbox}{minipage=\dimexpr\linewidth-2\fboxsep-2\fboxrule}
+    \begin{blockdescenv}
+      #1
+    \end{blockdescenv}
+  \end{adjustbox}
+  \vspace{1pt}
+}
+
+\pagestyle{fancy}
+\fancyhead[L]{}
+\fancyhead[R]{\rotatebox{90}{\scriptsize\thepage}}
+\fancyfoot[C]{}
+\renewcommand{\headrulewidth}{0pt}
+
+\fancypagestyle{plain}{
+\fancyhead[L]{\scriptsize\university{} | \teamname}
+\fancyhead[R]{\rotatebox{90}{\scriptsize\thepage}}
+\fancyfoot[C]{}
+\renewcommand{\headrulewidth}{0.2pt}
+}
 
 \begin{document}
 \begin{landscape}
-\begin{multicols}{2}
+\begin{multicols*}{3}  % 3 colunas (preenche da esquerda para direita)
+\interlinepenalty=1000000000
+\linepenalty=1000000000
+\widowpenalty=1000000000
 
 \maketitle
-\vspace{-13ex}
+\vspace{-11ex}
 \tableofcontents
 \pagestyle{fancy}
 
 \input contents.tex
 
-\end{multicols}
+\end{multicols*}
 \end{landscape}
 \end{document}
