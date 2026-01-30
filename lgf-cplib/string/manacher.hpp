@@ -7,13 +7,10 @@ using namespace std;
  * Complexidade: O(N) onde N é o tamanho da string.
  * Memória: O(N)
  * Funções:
- * - manacher(s): Retorna array onde ret[i] = tamanho do maior palíndromo
- *                centrado em i (i pode ser posição ou entre posições).
+ * - manacher(s): arr[i] = tamanho do maior palíndromo centrado em i.
  * - palindrome: Struct para verificar se s[i..j] é palíndromo em O(1).
- * - pal_begin(s): Retorna array onde ret[i] = tamanho do maior palíndromo
- *                 começando em i.
- * - pal_end(s): Retorna array onde ret[i] = tamanho do maior palíndromo
- *               terminando em i.
+ * - pal_begin(s): arr[i] = tamanho do maior palíndromo começando em i.
+ * - pal_end(s):   arr[i] = tamanho do maior palíndromo terminando em i.
  */
 
 template<typename T>
