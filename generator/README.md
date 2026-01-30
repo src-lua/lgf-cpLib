@@ -158,7 +158,7 @@ void test_function() {
 Em `contents.txt`, adicione `@` no final do nome:
 
 ```
-../lib/examples/tags.hpp $ Tags @
+../lgf-cplib/examples/tags.hpp $ Tags @
 ```
 
 ---
@@ -187,7 +187,7 @@ Instale: `sudo apt-get install latexmk`
 
 ## 📝 Workflow Recomendado
 
-1. **Desenvolver código** em `/lib/`
+1. **Desenvolver código** em `/lgf-cplib/`
 2. **Testar** código funciona
 3. **Gerar contents.txt**: `python3 getContents.py > contents.txt`
 4. **Revisar** `contents.txt` (comentar arquivos indesejados)

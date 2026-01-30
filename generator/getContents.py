@@ -47,13 +47,13 @@ def collect_files(directory, prefix=""):
 
     return files
 
-# Automatically discover all directories in lib/
+# Automatically discover all directories in lgf-cplib/
 def get_section_name(directory_name):
     """Convert directory name to section title"""
     name = directory_name.replace('-', ' ').replace('_', ' ')
     return ' '.join(word.capitalize() for word in name.split())
 
-# Collect all directories in lib/
+# Collect all directories in lgf-cplib/
 try:
     all_dirs = sorted([d for d in os.listdir(code_dir)
                        if os.path.isdir(os.path.join(code_dir, d))])
