@@ -11,17 +11,17 @@ $
 # If you add an '@' at the end of a file title, that file will not be hashed, even if use_hash is true.
 
 [Data Structures]
-../lgf-cplib/data-structures/dsu.hpp                                   $ Dsu
-../lgf-cplib/data-structures/segment-tree/segment-tree.hpp             $ Segment Tree
-../lgf-cplib/data-structures/segment-tree/lazy-segment-tree.hpp        $ Lazy Segment Tree
-../lgf-cplib/data-structures/segment-tree/dual-segment-tree.hpp        $ Dual Segment Tree
-../lgf-cplib/data-structures/segment-tree/dynamic-segment-tree.hpp     $ Dynamic Segment Tree
-../lgf-cplib/data-structures/segment-tree/persistent-segment-tree.hpp  $ Persistent Segment Tree
-../lgf-cplib/data-structures/fenwick-tree/fenwick-tree.hpp             $ Fenwick Tree
-../lgf-cplib/data-structures/fenwick-tree/fenwick-tree2d.hpp           $ Fenwick Tree2d
-../lgf-cplib/data-structures/fenwick-tree/dynamic-fenwick-tree2d.hpp   $ Dynamic Fenwick Tree2d
-../lgf-cplib/data-structures/sparse-table/sparse-table.hpp             $ Sparse Table
-../lgf-cplib/data-structures/sparse-table/disjoint-sparse-table.hpp    $ Disjoint Sparse Table
+../lgf-cplib/data-structures/dsu.hpp                                            $ Dsu
+../lgf-cplib/data-structures/segment-tree/segment-tree.hpp                      $ Segment Tree
+../lgf-cplib/data-structures/segment-tree/lazy-segment-tree.hpp                 $ Lazy Segment Tree
+../lgf-cplib/data-structures/segment-tree/dual-segment-tree.hpp                 $ Dual Segment Tree
+../lgf-cplib/data-structures/segment-tree/dynamic-segment-tree.hpp              $ Dynamic Segment Tree
+../lgf-cplib/data-structures/segment-tree/dynamic-persistent-segment-tree.hpp   $ Dynamic Persistent Segment Tree
+../lgf-cplib/data-structures/fenwick-tree/fenwick-tree.hpp                      $ Fenwick Tree
+../lgf-cplib/data-structures/fenwick-tree/fenwick-tree2d.hpp                    $ Fenwick Tree2d
+../lgf-cplib/data-structures/fenwick-tree/dynamic-fenwick-tree2d.hpp            $ Dynamic Fenwick Tree2d
+../lgf-cplib/data-structures/sparse-table/sparse-table.hpp                      $ Sparse Table
+../lgf-cplib/data-structures/sparse-table/disjoint-sparse-table.hpp             $ Disjoint Sparse Table
 
 #[Examples]
 #../lgf-cplib/examples/nodes.hpp  $ Nodes

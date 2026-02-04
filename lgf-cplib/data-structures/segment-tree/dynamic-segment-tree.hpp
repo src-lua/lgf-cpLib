@@ -53,7 +53,7 @@ struct DynamicSegTree {
     vector<InternalNode> seg;
 
     DynamicSegTree(ll l, ll r) : L(l), R(r) {
-        seg.emplace_back();
+        seg.reserve(4e6); seg.emplace_back();
     }
 
     void push(int v, ll l, ll r) {
