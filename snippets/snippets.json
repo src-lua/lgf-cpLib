@@ -1,0 +1,257 @@
+{
+    // Code template
+
+    "Pattern": {
+        "prefix": ["pattern"],
+        "body": [
+            "#include <bits/stdc++.h>",
+            "",
+            "#define endl '\\n'",
+            "",
+            "using namespace std;",
+            "",
+            "int main() {",
+            "    ios::sync_with_stdio(false);",
+            "    cin.tie(0);",
+            "",
+            "    ${0:/* code */}",
+            "",
+            "    return 0;",
+            "}"
+        ],
+        "description": "Competitive programming boilerplate with optimized I/O for fast execution."
+    },
+
+    "Pattern with Test Cases": {
+        "prefix": ["patterntc"],
+        "body": [
+            "#include <bits/stdc++.h>",
+            "",
+            "#define endl '\\n'",
+            "",
+            "using namespace std;",
+            "",
+            "int solve() {",
+            "",
+            "    ${0:/* code */}",
+            "",
+            "    return 0;",
+            "}",
+            "",
+            "int main() {",
+            "    ios::sync_with_stdio(false);",
+            "    cin.tie(0);",
+            "",
+            "    int tc; cin >> tc; while (tc--) {",
+            "        solve();",
+            "    }",
+            "",
+            "    return 0;",
+            "}"
+        ],
+        "description": "Competitive programming boilerplate with optimized I/O for fast execution and repeating code block for multiple test cases."
+    },
+
+    "I/O": {
+        "prefix": ["I/O"],
+        "body": [
+            "freopen(\"input.txt\", \"r\", stdin);",
+            "freopen(\"output.txt\", \"w\", stdout);"
+        ],
+        "description": "Redirecting standard input/output to files for automated testing and evaluation."
+    },
+
+    "Test cases": {
+        "prefix": ["tc", "test_cases"],
+        "body": [
+            "int tc; cin >> tc; while (tc--) {",
+            "    solve();",
+            "}"
+        ],
+        "description": "Repeating code block for multiple test cases."
+    },
+
+    "Solve Function": {
+        "prefix": ["solve"],
+        "body": [
+            "int solve() {",
+            "",
+            "    ${0:/* code */}",
+            "",
+            "    return 0;",
+            "}"            
+        ],
+        "description": "Solving the problem."
+    },
+
+    // Type macros
+
+    "Define long long": {
+        "prefix": ["ll"],
+        "body": [
+            "using ll = long long;"
+        ],
+        "description": "Aliasing a shorter name for the long long data type for convenience."
+    },
+
+    "Int -> long long": {
+        "prefix": ["defintll","int to ll"],
+        "body": [
+            "#define int long long ${0://change main to int32_t}"
+        ],
+        "description": "Redefining int to long long for wider integer range by default."
+    },
+
+    "Pair of ints": {
+        "prefix": ["pii"],
+        "body": [
+            "using pii = pair<int,int>;"
+        ],
+        "description": "Creating a concise alias pii for the pair<int, int> data type to simplify code."
+    },
+
+    "Tuple of ints": {
+        "prefix": ["iii"],
+        "body": [
+            "using iii = tuple<int,int,int>;"
+        ],
+        "description": "Establishing a succinct alias iii for the tuple<int, int, int> data type to enhance readability."
+    },
+
+    // Nested loops
+
+    "2 nested for loops": {
+        "prefix": ["2for"],
+        "body": [
+            "for (int i = 0; i < ${1:a}; i++) {",
+            "    for (int j = 0; j < ${2:b}; j++) {",
+            "        ${0:/* code  */}",
+            "    }",
+            "}"
+        ],
+        "description": "Nested loops iterating through a 2D structure or grid-like pattern."
+    },
+
+    "3 nested for loops": {
+        "prefix": ["3for"],
+        "body": [
+            "for (int i = 0; i < ${1:a}; i++) {",
+            "    for (int j = 0; j < ${2:b}; j++) {",
+            "        for (int k = 0; k < ${3:c}; k++) {",
+            "            ${0:/* code  */}",
+            "        }",
+            "    }",
+            "}"
+        ],
+        "description": "Triple-nested loops traversing a 3D structure or cube-like arrangement."
+    },
+
+    // Reading and iterating through boards (matrices)
+
+    "Reading a board N x N": {
+        "prefix": ["NxN", "boardN"],
+        "body": [
+            "int ${1:n}; ${2:char} ${3:c};",
+            "",
+            "cin >> ${1:n};",
+            "",
+            "${2:char} ${4:board}[${1:n}][${1:n}];",
+            "",
+            "for (int i = 0; i < ${1:n}; i++) {",
+            "    cin.get();",
+            "    for (int j = 0; j < ${1:n}; j++) {",
+            "        cin.get(${3:c});",
+            "        ${4:board}[i][j] = ${3:c};",
+            "    }",
+            "}"
+        ],
+        "description": "Reading a square board of size N x N from input."
+    },
+
+    "Reading a board row x col": {
+        "prefix": ["rowXcol","rxc","boardrowcol"],
+        "body": [
+            "int ${1:row}, ${2:col}; ${3:char} ${4:c};",
+            "",
+            "cin >> ${1:row} >> ${2:col};",
+            "",
+            "${3:char} ${5:board}[${1:row}][${2:col}];",
+            "",
+            "for (int i = 0; i < ${1:row}; i++) {",
+            "    cin.get();",
+            "    for (int j = 0; j < ${2:col}; j++) {",
+            "        cin.get(${4:c});",
+            "        ${5:board}[i][j] = ${4:c};",
+            "    }",
+            "}"
+        ],
+        "description": "Reading a rectangular board of variable dimensions from input."
+    },
+
+    "dx 4 directions": {
+        "prefix": ["dx4"],
+        "body": [
+            "const int dx[] = {0,0,1,-1};"
+        ],
+        "description": "Declaring an array for common horizontal movement offsets in grid-based problems."
+    },
+
+    "dy 4 directions": {
+        "prefix": ["dy4"],
+        "body": [
+            "const int dy[] = {1,-1,0,0};"
+        ],
+        "description": "Declaring an array for common vertical movement offsets in grid-based problems."
+    },
+
+    "dx 8 directions": {
+        "prefix": ["dx8"],
+        "body": [
+            "const int dx[] = {0, 0, 1,-1, 1, 1,-1,-1};"
+        ],
+        "description": "Declaring an array for horizontal offsets representing all 8 adjacent directions in a grid, including diagonals."
+    },
+
+    "dy 8 directions": {
+        "prefix": ["dy8"],
+        "body": [
+            "const int dy[] = {1,-1, 0, 0, 1,-1, 1,-1};"
+        ],
+        "description": "Declaring an array for vertical offsets corresponding to all 8 adjacent directions in a grid, including diagonals."
+    },
+
+    // Quality of life (QoL)
+
+    "Max/min of 3 elements": {
+        "prefix": ["defmax3", "defmin3", "maxmin3"],
+        "body": [
+            "#define min3(a,b,c) (min((a),min((b),(c))))", 
+            "#define max3(a,b,c) (max((a),max((b),(c))))"
+        ],
+        "description": "Defining macros for finding minimum and maximum among three values."
+    },
+    
+    "MOD": {
+        "prefix": ["MOD", "1e9+7"],
+        "body": [
+            "const int MOD = 1e9+7; ${0://pay attention with others MOD numbers, e.g., 1e9+9, 998244353, 469762049}"
+        ],
+        "description": "Defining a constant modulo value for calculations preventing integer overflow and ensuring compatibility with algorithms that rely on prime numbers."
+    },
+
+    "INT INF": {
+        "prefix": ["intinf"],
+        "body": [
+            "const int INF = INT_MAX;"
+        ],
+        "description": "Define a constant value for representing infinity for integer values within program context."
+    },
+
+    "LONG LONG INF ": {
+        "prefix": ["llinf"],
+        "body": [
+            "const long long INF = LLONG_MAX;"
+        ],
+        "description": "Define a constant value for representing infinity for long integer values within program context."
+    }
+}

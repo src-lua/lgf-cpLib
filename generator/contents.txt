@@ -11,81 +11,83 @@ $
 # If you add an '@' at the end of a file title, that file will not be hashed, even if use_hash is true.
 
 [Data Structures]
-../lgf-cplib/data-structures/dsu.hpp                                                      $ Dsu
-../lgf-cplib/data-structures/mo.hpp                                                       $ Mo
-../lgf-cplib/data-structures/fenwick-tree/fenwick-tree.hpp                                $ Fenwick Tree
-../lgf-cplib/data-structures/fenwick-tree/fenwick-tree2d.hpp                              $ Fenwick Tree 2D
-../lgf-cplib/data-structures/fenwick-tree/dynamic-fenwick-tree2d.hpp                      $ Dynamic Fenwick Tree 2D
-../lgf-cplib/data-structures/sparse-table/sparse-table.hpp                                $ Sparse Table
-../lgf-cplib/data-structures/sparse-table/disjoint-sparse-table.hpp                      $ Disjoint Sparse Table
-../lgf-cplib/data-structures/segment-tree/segment-tree.hpp                                $ Segment Tree
-../lgf-cplib/data-structures/segment-tree/lazy-segment-tree.hpp                          $ Lazy Segment Tree
-../lgf-cplib/data-structures/segment-tree/dual-segment-tree.hpp                          $ Dual Segment Tree
-../lgf-cplib/data-structures/segment-tree/segment-tree-beats.hpp                         $ Segment Tree Beats
-../lgf-cplib/data-structures/segment-tree/dynamic-segment-tree.hpp                       $ Dynamic Segment Tree
-../lgf-cplib/data-structures/segment-tree/dynamic-persistent-segment-tree.hpp            $ Dynamic Persistent Segment Tree
+../lib/data-structures/dsu.hpp                                                      $ Dsu
+../lib/data-structures/mo.hpp                                                       $ Mo
+../lib/data-structures/fenwick-tree/fenwick-tree.hpp                                $ Fenwick Tree
+../lib/data-structures/fenwick-tree/fenwick-tree2d.hpp                              $ Fenwick Tree 2D
+../lib/data-structures/fenwick-tree/dynamic-fenwick-tree2d.hpp                      $ Dynamic Fenwick Tree 2D
+../lib/data-structures/sparse-table/sparse-table.hpp                                $ Sparse Table
+../lib/data-structures/sparse-table/disjoint-sparse-table.hpp                      $ Disjoint Sparse Table
+../lib/data-structures/segment-tree/segment-tree.hpp                                $ Segment Tree
+../lib/data-structures/segment-tree/lazy-segment-tree.hpp                          $ Lazy Segment Tree
+../lib/data-structures/segment-tree/dual-segment-tree.hpp                          $ Dual Segment Tree
+../lib/data-structures/segment-tree/segment-tree-beats.hpp                         $ Segment Tree Beats
+../lib/data-structures/segment-tree/dynamic-segment-tree.hpp                       $ Dynamic Segment Tree
+../lib/data-structures/segment-tree/dynamic-persistent-segment-tree.hpp            $ Dynamic Persistent Segment Tree
 
 [Graphs]
-../lgf-cplib/graphs/dijkstra.hpp                          $ Dijkstra
-../lgf-cplib/graphs/euler-path.hpp                        $ Euler Path
-../lgf-cplib/graphs/lca.hpp                               $ Lca
-../lgf-cplib/graphs/tarjan.hpp                            $ Tarjan
-../lgf-cplib/graphs/articulations.hpp                     $ Articulations
-../lgf-cplib/graphs/bridges.hpp                           $ Bridges
-../lgf-cplib/graphs/2sat.hpp                              $ 2-SAT
-../lgf-cplib/graphs/hld/hld-commutative.hpp               $ Hld Commutative
-../lgf-cplib/graphs/hld/hld-commutative-lazy.hpp          $ Hld Commutative Lazy
-../lgf-cplib/graphs/hld/hld-non-commutative.hpp           $ Hld Non Commutative
-../lgf-cplib/graphs/hld/hld-non-commutative-lazy.hpp      $ Hld Non Commutative Lazy
-../lgf-cplib/graphs/flow/dinic.hpp                        $ Dinic
-../lgf-cplib/graphs/flow/mcmf.hpp                         $ MCMF
-../lgf-cplib/graphs/flow/bipartite-matching.hpp           $ Bipartite Matching
+../lib/graphs/dijkstra.hpp                          $ Dijkstra
+../lib/graphs/euler-path.hpp                        $ Euler Path
+../lib/graphs/lca.hpp                               $ Lca
+../lib/graphs/tarjan.hpp                            $ Tarjan
+../lib/graphs/articulations.hpp                     $ Articulations
+../lib/graphs/bridges.hpp                           $ Bridges
+../lib/graphs/2sat.hpp                              $ 2-SAT
+../lib/graphs/hld/hld-commutative.hpp               $ Hld Commutative
+../lib/graphs/hld/hld-commutative-lazy.hpp          $ Hld Commutative Lazy
+../lib/graphs/hld/hld-non-commutative.hpp           $ Hld Non Commutative
+../lib/graphs/hld/hld-non-commutative-lazy.hpp      $ Hld Non Commutative Lazy
+../lib/graphs/flow/dinic.hpp                        $ Dinic
+../lib/graphs/flow/mcmf.hpp                         $ MCMF
+../lib/graphs/flow/bipartite-matching.hpp           $ Bipartite Matching
 
 [Math]
-../lgf-cplib/math/mint.hpp                                $ Mint
-../lgf-cplib/math/fexp.hpp                                $ Fast Exponentiation
-../lgf-cplib/math/prime-sieve.hpp                         $ Prime Sieve
-../lgf-cplib/math/euler-phi.hpp                           $ Euler Phi
-../lgf-cplib/math/number-theory.hpp                       $ Number Theory
-../lgf-cplib/math/miller-rabin.hpp                        $ Miller Rabin
-../lgf-cplib/math/matrix.hpp                              $ Matrix
-../lgf-cplib/math/gauss.hpp                               $ Gaussian Elimination
-../lgf-cplib/math/linear-basis.hpp                        $ Linear Basis
-../lgf-cplib/math/search.hpp                              $ Unimodal Search
-../lgf-cplib/math/convolutions/fft.hpp                    $ FFT
-../lgf-cplib/math/convolutions/fft-mod.hpp                $ FFT Mod
-../lgf-cplib/math/convolutions/ntt.hpp                    $ NTT
-../lgf-cplib/math/convolutions/fwht.hpp                   $ FWHT
+../lib/math/mint.hpp                                $ Mint
+../lib/math/fexp.hpp                                $ Fast Exponentiation
+../lib/math/prime-sieve.hpp                         $ Prime Sieve
+../lib/math/euler-phi.hpp                           $ Euler Phi
+../lib/math/number-theory.hpp                       $ Number Theory
+../lib/math/miller-rabin.hpp                        $ Miller Rabin
+../lib/math/matrix.hpp                              $ Matrix
+../lib/math/gauss.hpp                               $ Gaussian Elimination
+../lib/math/linear-basis.hpp                        $ Linear Basis
+../lib/math/search.hpp                              $ Unimodal Search
+../lib/math/convolutions/fft.hpp                    $ FFT
+../lib/math/convolutions/fft-mod.hpp                $ FFT Mod
+../lib/math/convolutions/ntt.hpp                    $ NTT
+../lib/math/convolutions/fwht.hpp                   $ FWHT
 
 [String]
-../lgf-cplib/string/kmp.hpp                               $ KMP
-../lgf-cplib/string/z-function.hpp                        $ Z Function
-../lgf-cplib/string/string-hash.hpp                       $ String Hash
-../lgf-cplib/string/trie.hpp                              $ Trie
-../lgf-cplib/string/manacher.hpp                          $ Manacher
-../lgf-cplib/string/suffix-array/suffix-array-nlogn.hpp   $ Suffix Array (NlogN)
-../lgf-cplib/string/suffix-array/suffix-array-linear.hpp  $ Suffix Array (Linear)
+../lib/string/kmp.hpp                               $ KMP
+../lib/string/z-function.hpp                        $ Z Function
+../lib/string/string-hash.hpp                       $ String Hash
+../lib/string/trie.hpp                              $ Trie
+../lib/string/manacher.hpp                          $ Manacher
+../lib/string/suffix-array/suffix-array-nlogn.hpp   $ Suffix Array (NlogN)
+../lib/string/suffix-array/suffix-array-linear.hpp  $ Suffix Array (Linear)
 
 [Geometry]
-../lgf-cplib/geometry/point.hpp                           $ Point
-../lgf-cplib/geometry/line.hpp                            $ Line
-../lgf-cplib/geometry/circle.hpp                          $ Circle
-../lgf-cplib/geometry/polygon.hpp                         $ Polygon
-../lgf-cplib/geometry/convex-hull.hpp                     $ Convex Hull
-../lgf-cplib/geometry/closest-pair.hpp                    $ Closest Pair
+../lib/geometry/point.hpp                           $ Point
+../lib/geometry/line.hpp                            $ Line
+../lib/geometry/circle.hpp                          $ Circle
+../lib/geometry/polygon.hpp                         $ Polygon
+../lib/geometry/convex-hull.hpp                     $ Convex Hull
+../lib/geometry/closest-pair.hpp                    $ Closest Pair
 
 [Others]
-../lgf-cplib/others/stress-test.sh    $ Stress Test
-../lgf-cplib/others/gen.cpp           $ Gen
-../lgf-cplib/others/checker.cpp       $ Checker
+../lib/others/stress-test.sh    $ Stress Test
+../lib/others/gen.cpp           $ Gen
+../lib/others/checker.cpp       $ Checker
+../lib/theory/hash-info.typ                   $ Hash Function
+../lib/others/hash-verifier.cpp $ Hash Verifier
 
-[Extra]
-./extra/tables.tex                    $ Tables
-./extra/combinatorics.tex             $ Combinatorics
-./extra/number-theory.tex             $ Number Theory
-./extra/recurrences.tex               $ Recurrences
-./extra/graphs.tex                    $ Graphs
-./extra/math.tex                      $ Math
-./extra/game-theory.tex               $ Game Theory
-./extra/num-tables.tex                $ Num Tables
-./extra/debug.tex                     $ Debugging
+[!Theoretical]
+../lib/theory/tables.typ                      $ Tables
+../lib/theory/combinatorics.typ               $ Combinatorics
+../lib/theory/number-theory.typ               $ Number Theory
+../lib/theory/recurrences.typ                 $ Recurrences
+../lib/theory/graphs.typ                      $ Graphs
+../lib/theory/math.typ                        $ Math
+../lib/theory/game-theory.typ                 $ Game Theory
+../lib/theory/num-tables.typ                  $ Num Tables
+../lib/theory/debug.typ                       $ Debugging

@@ -1,8 +1,11 @@
 #!/bin/bash
-# ============================================
-# 🌙 Lua's Notebook Generator
-# 🦖 Inspired by SamuellH12's notebook generator
-# ============================================
+# ============================================================
+#  Lua's Notebook Generator — Typst edition
+# ============================================================
+
+set -euo pipefail
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
 
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
@@ -11,106 +14,72 @@ PURPLE='\033[38;5;135m'
 GOLD='\033[38;5;220m'
 NC='\033[0m'
 
-cmd_pid=""
-frames=('⠋' '⠙' '⠹' '⠸' '⠼' '⠴' '⠦' '⠧' '⠇' '⠏')
-
+# ── Spinner ───────────────────────────────────────────────────────────────────
+spin_pid=""
 spin() {
-    local msg="$1"
-    local i=0
-    while kill -0 "$cmd_pid" 2>/dev/null; do
-        printf "\r\033[K${frames[$i]} %s" "$msg" > /dev/tty
-        i=$(( (i+1) % ${#frames[@]} ))
-        sleep 0.08
-    done
+  local frames=('⠋' '⠙' '⠹' '⠸' '⠼' '⠴' '⠦' '⠧' '⠇' '⠏')
+  local i=0
+  while true; do
+    printf "\r  ${YELLOW}${frames[$i]}${NC} %s..." "$1"
+    i=$(( (i+1) % ${#frames[@]} ))
+    sleep 0.08
+  done
 }
 
 run_step() {
-    local msg="$1"
-    shift
-
-    "$@" > /dev/null 2>&1 &
-    cmd_pid=$!
-    spin "$msg"
-    wait "$cmd_pid"; local status=$?
-    cmd_pid=""
-
-    if [ $status -eq 0 ]; then
-        printf "\r\033[K${GREEN}✓${NC} %s\n" "$msg" > /dev/tty
-    else
-        printf "\r\033[K${YELLOW}↻${NC} %s\n" "$msg" > /dev/tty
-        "$@" > /dev/null 2>&1 &
-        cmd_pid=$!
-        spin "$msg"
-        wait "$cmd_pid"; status=$?
-        cmd_pid=""
-        if [ $status -eq 0 ]; then
-            printf "\r\033[K${GREEN}✓${NC} %s\n" "$msg" > /dev/tty
-        else
-            printf "\r\033[K${RED}✗${NC} %s — rode manualmente para ver detalhes\n" "$msg" > /dev/tty
-            exit 1
-        fi
-    fi
-}
-
-run_xelatex() {
-    local msg="$1"
-
-    xelatex -halt-on-error -file-line-error notebook.tex > /dev/null 2>&1 &
-    cmd_pid=$!
-    spin "$msg"
-    wait "$cmd_pid"; local status=$?
-    cmd_pid=""
-
-    if [ $status -eq 0 ]; then
-        printf "\r\033[K${GREEN}✓${NC} %s\n" "$msg" > /dev/tty
-    else
-        printf "\r\033[K${YELLOW}↻${NC} %s\n" "$msg" > /dev/tty
-        rm -f *.aux *.log *.out *.toc *.fdb_latexmk *.fls *.synctex.gz
-        xelatex -halt-on-error -file-line-error notebook.tex > /dev/null 2>&1 &
-        cmd_pid=$!
-        spin "$msg"
-        wait "$cmd_pid"; status=$?
-        cmd_pid=""
-        if [ $status -eq 0 ]; then
-            printf "\r\033[K${GREEN}✓${NC} %s\n" "$msg" > /dev/tty
-        else
-            printf "\r\033[K${RED}✗${NC} %s — rode manualmente para ver detalhes\n" "$msg" > /dev/tty
-            exit 1
-        fi
-    fi
+  local label="$1"; shift
+  spin "$label" &
+  spin_pid=$!
+  if "$@" > /dev/null 2>&1; then
+    kill $spin_pid 2>/dev/null; wait $spin_pid 2>/dev/null || true
+    printf "\r  ${GREEN}✓${NC} %s\n" "$label"
+  else
+    kill $spin_pid 2>/dev/null; wait $spin_pid 2>/dev/null || true
+    printf "\r  ${RED}✗${NC} %s\n" "$label"
+    echo ""
+    echo "  Rerunning with output for diagnostics:"
+    "$@"
+    exit 1
+  fi
+  spin_pid=""
 }
 
 cleanup() {
-    [ -n "$cmd_pid" ] && kill "$cmd_pid" 2>/dev/null
-    printf "\r\033[K${RED}✗${NC} Interrompido\n" > /dev/tty
-    exit 1
+  [ -n "$spin_pid" ] && kill "$spin_pid" 2>/dev/null || true
+  rm -rf temp/
 }
-trap cleanup INT TERM
+trap cleanup EXIT
 
-printf "${PURPLE}=============================\n"
-printf " 🌙 Lua's Notebook Generator \n"
-printf "=============================${NC}\n\n"
+# ── Args ──────────────────────────────────────────────────────────────────────
+BW=false
+OUTPUT="../print/notebook.pdf"
+for arg in "$@"; do
+  case "$arg" in
+    --p\&b|--pb|--bw) BW=true; OUTPUT="../print/notebook-bw.pdf" ;;
+  esac
+done
 
-OPENSSL=$(brew --prefix openssl)
+# ── Header ────────────────────────────────────────────────────────────────────
+printf "\n${PURPLE}╔══════════════════════════════╗${NC}\n"
+printf "${PURPLE}║ 🌙 Lua's Notebook Generator  ║${NC}\n"
+printf "${PURPLE}╚══════════════════════════════╝${NC}\n\n"
+$BW && printf "  ${YELLOW}Modo preto e branco ativado${NC}\n\n"
 
-run_step "Compilando gerador LaTeX" \
-    g++ -std=c++17 -o generate_latex generate_latex.cpp -O2 -lcrypto \
-        -Wno-deprecated-declarations \
-        -I"$OPENSSL/include" -L"$OPENSSL/lib"
+# ── Build Rust generator ──────────────────────────────────────────────────────
+run_step "Compilando gerador Rust" \
+  cargo build --release --manifest-path Cargo.toml
 
-run_step "Gerando contents.tex" \
-    ./generate_latex
+# ── Run generator (produces contents.typ + temp/) ────────────────────────────
+run_step "Gerando contents.typ" \
+  ./target/release/notebook-gen
 
-run_xelatex "Compilando PDF (1a passagem)"
-run_xelatex "Compilando PDF (2a passagem)"
+# ── Compile with Typst ────────────────────────────────────────────────────────
+TYPST_ENTRY="notebook.typ"
+$BW && TYPST_ENTRY="notebook-bw.typ"
 
-run_step "Movendo PDF para ../print" \
-    mv notebook.pdf ../print/notebook.pdf
+run_step "Compilando PDF" \
+  typst compile --input bw="$BW" "$TYPST_ENTRY" "$OUTPUT"
 
-printf "${GREEN}✓${NC} PDF disponível em ../print/notebook.pdf\n" > /dev/tty
-
-rm -f generate_latex
-rm -f *.aux *.log *.out *.toc *.fdb_latexmk *.fls *.synctex.gz
-rm -rf temp/
-
-printf "\n${GOLD}🌙 Good luck and good contest!${NC}\n\n" > /dev/tty
+# ── Done ──────────────────────────────────────────────────────────────────────
+printf "\n  ${GREEN}PDF disponivel em: ${OUTPUT#../}${NC}\n"
+printf "\n\033[1m${GOLD}🌙 Good luck and good contest!${NC}\n\n"

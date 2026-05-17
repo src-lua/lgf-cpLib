@@ -1,0 +1,11 @@
+[package]
+name = "notebook-gen"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "notebook-gen"
+path = "src/main.rs"
+
+[dependencies]
+md5 = "0.7"
