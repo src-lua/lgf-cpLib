@@ -3,7 +3,8 @@
 set -e
 
 echo "=== Compilando gerador LaTeX ==="
-g++ -std=c++17 -o generate_latex generate_latex.cpp -O2 -lcrypto -Wno-deprecated-declarations
+OPENSSL=$(brew --prefix openssl)
+g++ -std=c++17 -o generate_latex generate_latex.cpp -O2 -lcrypto -Wno-deprecated-declarations -I"$OPENSSL/include" -L"$OPENSSL/lib"
 
 echo "=== Gerando contents.tex ==="
 ./generate_latex

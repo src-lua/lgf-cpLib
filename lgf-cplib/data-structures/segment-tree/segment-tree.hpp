@@ -33,13 +33,15 @@ struct SegTree {
 
     SegTree(int n) : N(n), seg(4 * n) {}
 
-    SegTree(const vector<int>& v) : N(v.size()), seg(4 * v.size()) {
+    template<typename T>
+    SegTree(const vector<T>& v) : N(v.size()), seg(4 * v.size()) {
         build(1, 0, N - 1, v);
     }
 
-    void build(int no, int l, int r, const vector<int>& v) {
+    template<typename T>
+    void build(int no, int l, int r, const vector<T>& v) {
         if (l == r) {
-            seg[no] = NODE(v[l]); 
+            seg[no] = NODE(v[l]);
             return;
         }
         int m = (l + r) >> 1;

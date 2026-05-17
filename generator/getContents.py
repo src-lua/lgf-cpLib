@@ -1,6 +1,6 @@
 import os
 
-code_dir = "../lib"
+code_dir = "../lgf-cplib"
 extra_dir = "./extra"
 div_char = '$'
 

@@ -12,7 +12,8 @@ namespace lgf_dbg {
 template<typename T, typename = void>
 struct is_iterable : false_type {};
 template<typename T>
-struct is_iterable<T, void_t<decltype(begin(declval<T>())), decltype(end(declval<T>()))>>
+struct is_iterable<T, void_t<decltype(begin(declval<T>())),
+                             decltype(end(declval<T>()))>>
     : true_type {};
 
 template<typename T, typename = void>
