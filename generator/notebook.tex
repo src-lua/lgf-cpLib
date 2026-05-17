@@ -26,7 +26,8 @@
 \usepackage{booktabs}
 
 \newcommand{\university}{Centro de Informática - Universidade Federal de Pernambuco}
-\newcommand{\teamname}{Src-Lua}
+\newcommand{\teamname}{Lua}
+\newcommand{\authorname}{Lua Guimarães Fernandes}
 
 \title{\vspace{-5ex}\Large{\underline{\teamname{} | CIn - UFPE}}}\author{}\date{\vspace{-7ex}\tiny\today}
 
@@ -197,13 +198,15 @@
 }
 
 \pagestyle{fancy}
-\fancyhead[L]{}
+\fancyhead[L]{\scriptsize\university{} | \authorname}
+\fancyhead[C]{}
 \fancyhead[R]{\rotatebox{90}{\scriptsize\thepage}}
 \fancyfoot[C]{}
-\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\headrulewidth}{0.2pt}
 
 \fancypagestyle{plain}{
-\fancyhead[L]{\scriptsize\university{} | \teamname}
+\fancyhead[L]{\scriptsize\university{} | \authorname}
+\fancyhead[C]{}
 \fancyhead[R]{\rotatebox{90}{\scriptsize\thepage}}
 \fancyfoot[C]{}
 \renewcommand{\headrulewidth}{0.2pt}
