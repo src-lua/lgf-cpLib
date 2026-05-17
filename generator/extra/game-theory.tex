@@ -1,0 +1,16 @@
+\setlength{\parindent}{0pt}
+
+\section{Teoria dos Jogos}
+
+\textbf{Sprague-Grundy:} Todo jogo imparcial equivale a um Nim de um único monte. O valor de Grundy (nimber) de uma posição $u$ é:
+\[g(u)=\text{mex}\{g(v): v \text{ alcançável de } u\}\]
+onde $\text{mex}(S)$ é o menor inteiro não negativo fora de $S$.
+
+Posição perdedora $\Leftrightarrow$ $g(u)=0$. Em jogo composto de partes independentes:
+\[g = g_1 \oplus g_2 \oplus \cdots \oplus g_k\]
+
+\textbf{Nim:} $k$ montes de tamanhos $a_1,\ldots,a_k$. Posição perdedora $\Leftrightarrow$ $a_1\oplus\cdots\oplus a_k=0$.
+
+\textbf{Nim misère} (quem pegar o último \emph{perde}): subtraia 1 de cada pilha; se o XOR resultante $\neq 0$, a posição original é ganhadora.
+
+\textbf{Wythoff:} 2 montes $(a,b)$, $a\leq b$. Movimentos: remover qualquer qtd de um monte, ou a mesma qtd dos dois. Posição perdedora $\Leftrightarrow$ $a=\lfloor\phi k\rfloor$, $b=\lfloor\phi^2 k\rfloor$ para algum $k\geq0$, onde $\phi=(1+\sqrt5)/2$. Equivalentemente: $k=a$, $b-a=\lfloor\phi k\rfloor$.

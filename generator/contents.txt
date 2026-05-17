@@ -44,7 +44,8 @@ $
 [Math]
 ../lgf-cplib/math/mint.hpp                                $ Mint
 ../lgf-cplib/math/fexp.hpp                                $ Fast Exponentiation
-../lgf-cplib/math/sieve.hpp                               $ Sieve
+../lgf-cplib/math/prime-sieve.hpp                         $ Prime Sieve
+../lgf-cplib/math/euler-phi.hpp                           $ Euler Phi
 ../lgf-cplib/math/number-theory.hpp                       $ Number Theory
 ../lgf-cplib/math/miller-rabin.hpp                        $ Miller Rabin
 ../lgf-cplib/math/matrix.hpp                              $ Matrix
@@ -72,10 +73,19 @@ $
 ../lgf-cplib/geometry/polygon.hpp                         $ Polygon
 ../lgf-cplib/geometry/convex-hull.hpp                     $ Convex Hull
 ../lgf-cplib/geometry/closest-pair.hpp                    $ Closest Pair
-../lgf-cplib/geometry/lattice.hpp                         $ Lattice
 
 [Others]
-../lgf-cplib/others/template.cpp      $ Template
+../lgf-cplib/others/stress-test.sh    $ Stress Test
 ../lgf-cplib/others/gen.cpp           $ Gen
 ../lgf-cplib/others/checker.cpp       $ Checker
-../lgf-cplib/others/stress-test.sh    $ Stress Test
+
+[Extra]
+./extra/tables.tex                    $ Tables
+./extra/combinatorics.tex             $ Combinatorics
+./extra/number-theory.tex             $ Number Theory
+./extra/recurrences.tex               $ Recurrences
+./extra/graphs.tex                    $ Graphs
+./extra/math.tex                      $ Math
+./extra/game-theory.tex               $ Game Theory
+./extra/num-tables.tex                $ Num Tables
+./extra/debug.tex                     $ Debugging

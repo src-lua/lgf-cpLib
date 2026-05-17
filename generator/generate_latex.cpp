@@ -422,7 +422,7 @@ int main(){
         bool added_hash = false;
         for(auto& [section_name, subsections] : sections)
             if(section_name == "Extra")
-                subsections.push_back(t_section({HASH_CODE, "Hash Function", true})),
+                subsections.insert(subsections.begin(), t_section({HASH_CODE, "Hash Function", true})),
                 added_hash = true;
         if(!added_hash) 
             sections.emplace_back("Extra", vector<t_section>({t_section({HASH_CODE, "Hash Function", true})}));

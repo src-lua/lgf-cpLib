@@ -89,6 +89,11 @@ bool interpol(const vector<Ptd>& v1, const vector<Ptd>& v2) {
     return false;
 }
 
+// Pick: I = (area2 - boundary + 2) / 2, boundary = Σgcd(|dx|,|dy|) nas arestas
+long long lattice_points(long long area2, long long boundary) {
+    return (area2 - boundary + 2) / 2;
+}
+
 // distância entre dois polígonos
 ld distpol(const vector<Ptd>& v1, const vector<Ptd>& v2) {
     if (interpol(v1, v2)) return 0;
