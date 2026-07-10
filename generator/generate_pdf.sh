@@ -78,7 +78,7 @@ TYPST_ENTRY="notebook.typ"
 $BW && TYPST_ENTRY="notebook-bw.typ"
 
 run_step "Compilando PDF" \
-  typst compile --input bw="$BW" "$TYPST_ENTRY" "$OUTPUT"
+  typst compile --root .. --input bw="$BW" "$TYPST_ENTRY" "$OUTPUT"
 
 # ── Done ──────────────────────────────────────────────────────────────────────
 printf "\n  ${GREEN}PDF disponivel em: ${OUTPUT#../}${NC}\n"

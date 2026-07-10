@@ -1,4 +1,6 @@
 // Shared definitions imported by contents.typ
+#import "@preview/catppuccin:1.1.0": get-flavor
+#let _ctp = get-flavor("latte").colors
 
 #let hash_col_width  = 2.2em
 #let font_size       = 6.3pt
@@ -18,7 +20,7 @@
           block(height: line_height, spacing: 0pt, width: hash_col_width),
           block(height: line_height, spacing: 0pt, clip: true,
             align(horizon + left,
-              text(size: font_size, fill: rgb("#6a737d"), font: "JetBrains Mono",
+              text(size: font_size, fill: _ctp.overlay1.rgb, font: "JetBrains Mono",
                 raw(l)
               )
             )
@@ -29,7 +31,7 @@
         (
           block(height: h_line, spacing: 0pt, width: hash_col_width,
             align(horizon)[
-              #set text(size: font_size, fill: rgb("#8a8a8a"))
+              #set text(size: font_size, fill: _ctp.overlay0.rgb)
               #h
             ]
           ),
