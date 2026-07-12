@@ -1,6 +1,7 @@
 #pragma once
 #include <bits/stdc++.h>
 using namespace std;
+using ll = long long;
 
 /* Crivo Linear — O(N)
  *
@@ -10,24 +11,24 @@ using namespace std;
  */
 
 pair<vector<int>, vector<int>> linear_sieve(int n) {
-    vector<int> phi(n + 1, 0), primes;
-    vector<bool> composite(n + 1, false);
-    phi[1] = 1;
-    for (int i = 2; i <= n; i++) {
-        if (!composite[i]) {
-            primes.push_back(i);
-            phi[i] = i - 1;
-        }
-        for (int p : primes) {
-            if ((long long)i * p > n) break;
-            composite[i * p] = true;
-            if (i % p == 0) {
-                phi[i * p] = phi[i] * p;
-                break;
-            } else {
-                phi[i * p] = phi[i] * (p - 1);
-            }
-        }
+  vector<int> phi(n + 1, 0), primes;
+  vector<bool> composite(n + 1, false);
+  phi[1] = 1;
+  for (int i = 2; i <= n; i++) {
+    if (!composite[i]) {
+      primes.push_back(i);
+      phi[i] = i - 1;
     }
-    return {primes, phi};
+    for (int p : primes) {
+      if ((ll)i * p > n) break;
+      composite[i * p] = true;
+      if (i % p == 0) {
+        phi[i * p] = phi[i] * p;
+        break;
+      } else {
+        phi[i * p] = phi[i] * (p - 1);
+      }
+    }
+  }
+  return {primes, phi};
 }

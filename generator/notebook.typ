@@ -8,11 +8,11 @@
 #import "@preview/catppuccin:1.1.0": get-flavor
 #let _ctp       = get-flavor("latte").colors
 #let _bw        = sys.inputs.at("bw", default: "false") == "true"
-#let ctp-text   = _ctp.text.rgb
+#let ctp-text   = if _bw { black } else { _ctp.text.rgb }
 #let ctp-sub0   = _ctp.subtext0.rgb
-#let ctp-surf2  = _ctp.surface2.rgb
-#let ctp-blue   = _ctp.text.rgb
-#let ctp-teal   = _ctp.blue.rgb
+#let ctp-surf2  = if _bw { luma(65%) } else { _ctp.surface2.rgb }
+#let ctp-blue   = if _bw { black } else { _ctp.text.rgb }
+#let ctp-teal   = if _bw { black } else { _ctp.blue.rgb }
 #let gray5      = if _bw { black } else { _ctp.overlay0.rgb }
 
 // ── Page setup ───────────────────────────────────────────────────────────────
@@ -22,9 +22,11 @@
   height: 595.28pt,
   margin: (left: 0.6cm, right: 1.3cm, top: 0.4cm, bottom: 0.4cm),
   fill: if _bw { white } else { _ctp.base.rgb },
+  columns: 3,
   header: none,
   footer: none,
 )
+#set columns(gutter: 6pt)
 
 // Vertical sidebar: team info top, page number bottom — in right margin
 #let _sidebar_x = 841.89pt - 0.6cm - 0.65cm
@@ -53,7 +55,6 @@
 // ── Headings ─────────────────────────────────────────────────────────────────
 #show heading.where(level: 1): it => {
   block(above: 5pt, below: 2pt)[
-    #line(length: 100%, stroke: 0.5pt + ctp-surf2)
     #text(size: 8pt, weight: "bold", fill: ctp-blue)[#it.body]
     #line(length: 100%, stroke: 0.3pt + ctp-surf2)
   ]
@@ -66,31 +67,33 @@
 }
 
 // ── Raw blocks ───────────────────────────────────────────────────────────────
-#set raw(theme: "Catppuccin Latte.tmTheme")
+#set raw(theme: if _bw { "grayscale.tmTheme" } else {
+  "Catppuccin Latte.tmTheme"
+})
 #show raw.where(block: true): it => {
   set par(leading: 4.5pt, spacing: 0pt)
   set text(size: 5.5pt)
   it
 }
 
-// ── 3-column content ─────────────────────────────────────────────────────────
-#columns(3, gutter: 6pt)[
-  #place(top + left, dx: 8pt, dy: 1pt,
-    text(size: 6pt, fill: gray5)[#datetime.today().display("[day]/[month]/[year]")]
+// ── Content (colunas no nível da página) ─────────────────────────────────────
+#place(top + left, dx: 8pt, dy: 1pt,
+  text(size: 6pt, fill: gray5)[#datetime.today().display("[day]/[month]/[year]")]
+)
+#align(center)[
+  #grid(columns: (auto, auto, auto), column-gutter: 6pt, align: horizon,
+    text(size: 11pt, weight: "bold")[#teamname | #university-short],
+    image(if _bw { "assets/maratonacin-logo-bw.svg" } else {
+      "assets/maratonacin-logo.svg" }, height: 24pt),
+    image(if _bw { "assets/cin-symbol-bw.svg" } else {
+      "assets/cin-symbol.svg" }, height: 18pt),
   )
-  #align(center)[
-    #grid(columns: (auto, auto, auto), column-gutter: 6pt, align: horizon,
-      text(size: 11pt, weight: "bold")[#teamname | #university-short],
-      image("assets/maratonacin-logo.svg", height: 24pt),
-      image("assets/cin-symbol.svg", height: 18pt),
-    )
-  ]
-
-  #v(4pt)
-
-  #outline(depth: 2, indent: 6pt)
-
-  #v(4pt)
-
-  #include "contents.typ"
 ]
+
+#v(4pt)
+
+#outline(depth: 2, indent: 6pt)
+
+#v(4pt)
+
+#include "contents.typ"

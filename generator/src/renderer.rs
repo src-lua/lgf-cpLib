@@ -14,7 +14,7 @@ pub fn render(sections: &[Section]) -> String {
         }
 
         if section.no_heading {
-            out.push_str("#colbreak()\n#colbreak()\n\n");
+            out.push_str("#pagebreak()\n\n");
         } else {
             out.push_str(&format!("= {}\n\n", section.name));
         }
@@ -47,6 +47,11 @@ pub fn render(sections: &[Section]) -> String {
                 // Trim trailing None entries
                 while lines.last().map(|(h, _)| h.is_none()) == Some(true) {
                     lines.pop();
+                }
+
+                if lines.is_empty() {
+                    out.push_str("#line(length: 100%, stroke: 0.3pt + gray)\n\n");
+                    continue;
                 }
 
                 let hash_array: Vec<String> = lines

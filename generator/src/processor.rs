@@ -114,14 +114,9 @@ fn filter_content(content: &str) -> String {
             line = line.replace(sub, "");
         }
 
-        // Truncate lines that would wrap in the Typst column
-        let line = if line.chars().count() > MAX_LINE_LEN {
-            let mut s: String = line.chars().take(MAX_LINE_LEN - 1).collect();
-            s.push('\u{2026}'); // …
-            s
-        } else {
-            line
-        };
+        // The source needs relative paths to compile, but the notebook only
+        // needs the header name. This also keeps displayed includes compact.
+        line = shorten_local_include(&line);
 
         result.push_str(&line);
         result.push('\n');
@@ -138,4 +133,46 @@ fn filter_content(content: &str) -> String {
 
 fn trim_trailing(s: &str) -> String {
     s.trim_end().to_string()
+}
+
+fn shorten_local_include(line: &str) -> String {
+    let indent_len = line.len() - line.trim_start().len();
+    let indent = &line[..indent_len];
+    let trimmed = &line[indent_len..];
+    let Some(rest) = trimmed.strip_prefix("#include \"") else {
+        return line.to_string();
+    };
+    let Some(quote) = rest.find('"') else {
+        return line.to_string();
+    };
+    let path = &rest[..quote];
+    let suffix = &rest[quote + 1..];
+    let name = path.rsplit('/').next().unwrap_or(path);
+    format!("{}#include \"{}\"{}", indent, name, suffix)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn shortens_relative_include_for_notebook() {
+        let line = "#include \"../../data-structures/segment-tree/lazy-segment-tree.hpp\"";
+        assert_eq!(
+            shorten_local_include(line),
+            "#include \"lazy-segment-tree.hpp\""
+        );
+    }
+
+    #[test]
+    fn preserves_simple_and_system_includes() {
+        assert_eq!(
+            shorten_local_include("#include \"point.hpp\""),
+            "#include \"point.hpp\""
+        );
+        assert_eq!(
+            shorten_local_include("#include <vector>"),
+            "#include <vector>"
+        );
+    }
 }

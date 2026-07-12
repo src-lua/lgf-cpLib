@@ -1,6 +1,5 @@
 pub const USE_HASH: bool = true;
 pub const HASH_LEN: usize = 3;
-pub const MAX_LINE_LEN: usize = 80;
 
 pub const IGNORED_LINES: &[&str] = &[
     "#include <bits/stdc++.h>",

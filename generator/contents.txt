@@ -85,7 +85,7 @@ $
 ../lib/others/hash-verifier.cpp               $ Hash Verifier
 
 [!Theoretical]
-../lib/theory/tables.typ                      $ Tables
+../lib/theory/tables.typ                      $ Tabelas
 ../lib/theory/combinatorics.typ               $ Combinatorics
 ../lib/theory/number-theory.typ               $ Number Theory
 ../lib/theory/recurrences.typ                 $ Recurrences

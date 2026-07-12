@@ -7,8 +7,8 @@ using namespace std;
  * Complexidade: Build O(P log P), Update/Query O(log^2 P).
  * Memória: O(P log P).
  * Requisitos:
- * - NODE deve ter: operator+=, operator-, operator+ e construtor default.
- * - Offline: Todos os pontos de interesse devem ser passados no build.
+ * - NODE: operator+=, operator-, operator+ e construtor default.
+ * - Offline: passe todos os pontos de interesse no build.
  *
  * Créditos: Adaptado de TFG (Thiago Ferreira Gonçalves)
  * Fonte: github.com/tfg50/Competitive-Programming
@@ -17,7 +17,7 @@ using namespace std;
 /* --- Exemplo de NODE (Soma com Inclusão-Exclusão) ---
 struct Node {
     ll val;
-    Node(long long v = 0) : val(v) {}
+    Node(ll v = 0) : val(v) {}
 
     void operator+=(const Node& other) {
         val += other.val;
@@ -33,67 +33,66 @@ struct Node {
 };
 */
 
-template<typename NODE>
+template <typename NODE>
 struct FenwickTree2DSparse {
-    using pii = pair<int, int>;
-    vector<int> ord;
-    vector<vector<NODE>> bit;
-    vector<vector<int>> coord;
+  using pii = pair<int, int>;
+  vector<int> ord;
+  vector<vector<NODE>> bit;
+  vector<vector<int>> coord;
 
-    FenwickTree2DSparse(vector<pii> pts) {
-        sort(pts.begin(), pts.end());
-        for (auto [x, y] : pts) {
-            if (ord.empty() || x != ord.back()) ord.push_back(x);
-        }
-
-        bit.resize(ord.size() + 1);
-        coord.resize(ord.size() + 1);
-
-        sort(pts.begin(), pts.end(), [](const pii& a, const pii& b) {
-            return a.second < b.second;
-        });
-
-        for (auto [x, y] : pts) {
-            for (int i = get_x(x); i < (int)bit.size(); i += i & -i) {
-                if (coord[i].empty() || coord[i].back() != y)
-                    coord[i].push_back(y);
-            }
-        }
-
-        for (int i = 0; i < (int)bit.size(); i++) {
-            bit[i].assign(coord[i].size() + 1, NODE());
-        }
+  FenwickTree2DSparse(vector<pii> pts) {
+    sort(pts.begin(), pts.end());
+    for (auto [x, y] : pts) {
+      if (ord.empty() || x != ord.back()) ord.push_back(x);
     }
 
-    inline int get_x(int x) {
-        return upper_bound(ord.begin(), ord.end(), x) - ord.begin();
+    bit.resize(ord.size() + 1);
+    coord.resize(ord.size() + 1);
+
+    sort(pts.begin(), pts.end(), [](const pii &a, const pii &b) {
+      return a.second < b.second;
+    });
+
+    for (auto [x, y] : pts) {
+      for (int i = get_x(x); i < bit.size(); i += i & -i) {
+        if (coord[i].empty() || coord[i].back() != y)
+          coord[i].push_back(y);
+      }
     }
 
-    inline int get_y(int i, int y) {
-        return upper_bound(coord[i].begin(), coord[i].end(), y)
-               - coord[i].begin();
-    }
+    for (int i = 0; i < bit.size(); i++)
+      bit[i].assign(coord[i].size() + 1, NODE());
+  }
 
-    void update(int x, int y, NODE v) {
-        for (int i = get_x(x); i < (int)bit.size(); i += i & -i) {
-            for (int j = get_y(i, y); j < (int)bit[i].size(); j += j & -j) {
-                bit[i][j] += v;
-            }
-        }
-    }
+  int get_x(int x) {
+    return upper_bound(ord.begin(), ord.end(), x) - ord.begin();
+  }
 
-    NODE query(int x, int y) {
-        NODE res;
-        for (int i = get_x(x); i > 0; i -= i & -i) {
-            for (int j = get_y(i, y); j > 0; j -= j & -j) {
-                res += bit[i][j];
-            }
-        }
-        return res;
-    }
+  int get_y(int i, int y) {
+    auto &c = coord[i];
+    return upper_bound(c.begin(), c.end(), y) - c.begin();
+  }
 
-    NODE query(int x1, int y1, int x2, int y2) {
-        return query(x2, y2) - query(x1 - 1, y2)
-               - query(x2, y1 - 1) + query(x1 - 1, y1 - 1);
+  void update(int x, int y, NODE v) {
+    for (int i = get_x(x); i < bit.size(); i += i & -i) {
+      for (int j = get_y(i, y); j < bit[i].size(); j += j & -j) {
+        bit[i][j] += v;
+      }
     }
+  }
+
+  NODE query(int x, int y) {
+    NODE res;
+    for (int i = get_x(x); i > 0; i -= i & -i) {
+      for (int j = get_y(i, y); j > 0; j -= j & -j) {
+        res += bit[i][j];
+      }
+    }
+    return res;
+  }
+
+  NODE query(int x1, int y1, int x2, int y2) {
+    return query(x2, y2) - query(x1 - 1, y2) -
+           query(x2, y1 - 1) + query(x1 - 1, y1 - 1);
+  }
 };

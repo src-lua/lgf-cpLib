@@ -1,6 +1,7 @@
 #pragma once
 #include <bits/stdc++.h>
 using namespace std;
+using ll = long long;
 
 /* Mo's Algorithm — O((N + Q) * sqrt(N))
  * queries: vetor de {l, r} 0-indexado, fechado.
@@ -18,33 +19,35 @@ using namespace std;
  */
 
 struct Mo {
-    int n, block;
-    struct Query { int l, r, idx; };
-    vector<Query> queries;
+  int n, block;
+  struct Query {
+    int l, r, idx;
+  };
+  vector<Query> queries;
 
-    Mo(int n, vector<pair<int,int>>& qs)
-        : n(n), block(max(1, (int)sqrt(n))) {
-        for (int i = 0; i < (int)qs.size(); i++)
-            queries.push_back({qs[i].first, qs[i].second, i});
-        sort(queries.begin(), queries.end(),
-             [&](const Query& a, const Query& b) {
-            int ba = a.l / block, bb = b.l / block;
-            if (ba != bb) return ba < bb;
-            return (ba & 1) ? a.r > b.r : a.r < b.r;
-        });
-    }
+  Mo(int n, vector<pair<int, int>> &qs)
+      : n(n), block(max(1, (int)sqrt(n))) {
+    for (int i = 0; i < (int)qs.size(); i++)
+      queries.push_back({qs[i].first, qs[i].second, i});
+    sort(queries.begin(), queries.end(),
+         [&](const Query &a, const Query &b) {
+           int ba = a.l / block, bb = b.l / block;
+           if (ba != bb) return ba < bb;
+           return (ba & 1) ? a.r > b.r : a.r < b.r;
+         });
+  }
 
-    template<typename Add, typename Rem, typename Ans>
-    void run(Add add, Rem rem, Ans ans) {
-        int L = 0, R = -1;
-        for (auto& [l, r, idx] : queries) {
-            while (R < r) add(++R);
-            while (L > l) add(--L);
-            while (R > r) rem(R--);
-            while (L < l) rem(L++);
-            ans(idx);
-        }
+  template <typename Add, typename Rem, typename Ans>
+  void run(Add add, Rem rem, Ans ans) {
+    int cur_l = 0, cur_r = -1;
+    for (auto &[l, r, idx] : queries) {
+      while (cur_r < r) add(++cur_r);
+      while (cur_l > l) add(--cur_l);
+      while (cur_r > r) rem(cur_r--);
+      while (cur_l < l) rem(cur_l++);
+      ans(idx);
     }
+  }
 };
 
 /* HilbertMo — Mo com ordenação pela curva de Hilbert
@@ -52,43 +55,50 @@ struct Mo {
  */
 
 struct HilbertMo {
-    struct Query { int l, r, idx; long long ord; };
-    vector<Query> queries;
+  struct Query {
+    int l, r, idx;
+    ll ord;
+  };
+  vector<Query> queries;
 
-    static long long hilbert(int x, int y, int n) {
-        long long d = 0;
-        for (int s = n >> 1; s; s >>= 1) {
-            int rx = (x & s) > 0, ry = (y & s) > 0;
-            d += (long long)s * s * ((3 * rx) ^ ry);
-            if (!ry) {
-                if (rx) { x = s - 1 - x; y = s - 1 - y; }
-                swap(x, y);
-            }
+  static ll hilbert(int x, int y, int n) {
+    ll d = 0;
+    for (int s = n >> 1; s; s >>= 1) {
+      int rx = (x & s) > 0, ry = (y & s) > 0;
+      d += (ll)s * s * ((3 * rx) ^ ry);
+      if (!ry) {
+        if (rx) {
+          x = s - 1 - x;
+          y = s - 1 - y;
         }
-        return d;
+        swap(x, y);
+      }
     }
+    return d;
+  }
 
-    HilbertMo(int n, vector<pair<int,int>>& qs) {
-        int hn = 1;
-        while (hn < n) hn <<= 1;
-        for (int i = 0; i < (int)qs.size(); i++)
-            queries.push_back({qs[i].first, qs[i].second, i,
-                               hilbert(qs[i].first, qs[i].second, hn)});
-        sort(queries.begin(), queries.end(),
-             [](const Query& a, const Query& b) {
-            return a.ord < b.ord;
-        });
-    }
+  HilbertMo(int n, vector<pair<int, int>> &qs) {
+    int hn = 1;
+    while (hn < n) hn <<= 1;
+    for (int i = 0; i < (int)qs.size(); i++)
+      queries.push_back(
+        {qs[i].first, qs[i].second, i,
+         hilbert(qs[i].first, qs[i].second, hn)});
+    sort(queries.begin(), queries.end(),
+         [](const Query &a, const Query &b) {
+           return a.ord < b.ord;
+         });
+  }
 
-    template<typename Add, typename Rem, typename Ans>
-    void run(Add add, Rem rem, Ans ans) {
-        int L = 0, R = -1;
-        for (auto& [l, r, idx, ord] : queries) {
-            while (R < r) add(++R);
-            while (L > l) add(--L);
-            while (R > r) rem(R--);
-            while (L < l) rem(L++);
-            ans(idx);
-        }
+  template <typename Add, typename Rem, typename Ans>
+  void run(Add add, Rem rem, Ans ans) {
+    int cur_l = 0, cur_r = -1;
+    for (auto &[l, r, idx, ord] : queries) {
+      while (cur_r < r) add(++cur_r);
+      while (cur_l > l) add(--cur_l);
+      while (cur_r > r) rem(cur_r--);
+      while (cur_l < l) rem(cur_l++);
+      ans(idx);
     }
+  }
 };

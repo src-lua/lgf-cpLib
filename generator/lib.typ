@@ -1,9 +1,13 @@
 // Shared definitions imported by contents.typ
 #import "@preview/catppuccin:1.1.0": get-flavor
 #let _ctp = get-flavor("latte").colors
+#let _bw  = sys.inputs.at("bw", default: "false") == "true"
+#let _comment_fill = if _bw { luma(45%) } else { _ctp.overlay1.rgb }
+#let _hash_fill    = if _bw { luma(55%) } else { _ctp.overlay0.rgb }
 
 #let hash_col_width  = 2.2em
-#let font_size       = 6.3pt
+#let font_size       = 7.8pt
+#let hash_font_size  = 6.3pt
 #let line_height     = font_size
 
 // hashes: array of hash strings ("XYZ" or "   ")
@@ -20,7 +24,7 @@
           block(height: line_height, spacing: 0pt, width: hash_col_width),
           block(height: line_height, spacing: 0pt, clip: true,
             align(horizon + left,
-              text(size: font_size, fill: _ctp.overlay1.rgb, font: "JetBrains Mono",
+              text(size: font_size, fill: _comment_fill, font: "JetBrains Mono",
                 raw(l)
               )
             )
@@ -31,7 +35,7 @@
         (
           block(height: h_line, spacing: 0pt, width: hash_col_width,
             align(horizon)[
-              #set text(size: font_size, fill: _ctp.overlay0.rgb)
+              #set text(size: hash_font_size, fill: _hash_fill)
               #h
             ]
           ),

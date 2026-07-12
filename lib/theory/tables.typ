@@ -1,6 +1,6 @@
-= Reference Tables
+= Tabelas de Referência
 
-== Types, Constants & Complexity
+== Tipos, Constantes & Complexidade
 
 #set text(size: 6pt)
 
