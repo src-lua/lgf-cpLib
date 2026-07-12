@@ -1,6 +1,6 @@
 #pragma once
 #include <bits/stdc++.h>
-#include "../data-structures/sparse-table/sparse-table.hpp"
+#include "../../data-structures/sparse-table/sparse-table.hpp"
 using namespace std;
 
 /* LCA (Lowest Common Ancestor) via RMQ
@@ -9,7 +9,7 @@ using namespace std;
  * Memória: O(N log N)
  * Requisitos:
  * - Grafo deve ser uma árvore (conexo e acíclico).
- * - Dependência: sparse-table/sparse-table.hpp
+ * - Dependência: data-structures/sparse-table/sparse-table.hpp
  * Métodos:
  * - lca(u, v): Retorna o LCA de u e v.
  * - dist(u, v): Retorna a distância entre u e v.
@@ -20,7 +20,7 @@ using namespace std;
 struct LCANode {
     int dep, id;
     LCANode(int d = 1e9, int pos = -1) : dep(d), id(pos) {}
-    
+
     static inline LCANode merge(const LCANode& l, const LCANode& r) {
         return l.dep < r.dep ? l : r;
     }
@@ -31,29 +31,29 @@ struct LCA {
     vector<int> first, tour, d, p;
     SparseTable<LCANode> st;
 
-    LCA(int n, int root, const vector<vector<int>>& adj) 
-        : N(n), first(n), d(n), p(n, -1), st(vector<LCANode>()) {
-        
-        vector<int> tour_depths;
-        tour.reserve(2 * n);
-        tour_depths.reserve(2 * n);
+    LCA(const vector<vector<int>>& adj, int root = 0)
+        : N(adj.size()), first(N), d(N), p(N, -1), st(vector<LCANode>()) {
+
+        tour.reserve(2 * N);
+        vector<LCANode> nodes;
+        nodes.reserve(2 * N);
 
         auto dfs = [&](auto self, int u, int parent_id, int dep) -> void {
             p[u] = parent_id;
             d[u] = dep;
             first[u] = tour.size();
             tour.push_back(u);
-            tour_depths.push_back(dep);
+            nodes.push_back({dep, (int)tour.size() - 1});
             for (int v : adj[u]) {
                 if (v == parent_id) continue;
                 self(self, v, u, dep + 1);
                 tour.push_back(u);
-                tour_depths.push_back(dep);
+                nodes.push_back({dep, (int)tour.size() - 1});
             }
         };
 
         dfs(dfs, root, -1, 0);
-        st = SparseTable<LCANode>(tour_depths);
+        st = SparseTable<LCANode>(nodes);
     }
 
     int parent(int u) {

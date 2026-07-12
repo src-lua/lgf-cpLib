@@ -20,7 +20,7 @@ bool is_prime(ll n) {
     ll d = n - 1; int r = 0;
     while (d % 2 == 0) d /= 2, r++;
     for (ll a : {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37}) {
-        if (a >= n) continue
+        if (a >= n) continue;
         ll x = 1, base = a % n, exp = d;
         for (; exp > 0; exp >>= 1, base = mulmod(base, base, n))
             if (exp & 1) x = mulmod(x, base, n);

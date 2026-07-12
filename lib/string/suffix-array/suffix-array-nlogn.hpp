@@ -66,7 +66,8 @@ struct SuffixArray {
     void build_lcp() {
         int n = sa.size();
         lcp.assign(n, 0);
-        for (int i = 0, h = 0; i < n - 1; i++) {
+        for (int i = 0, h = 0; i < n; i++) {
+            if (rk[i] == 0) { h = 0; continue; }
             int j = sa[rk[i] - 1];
             while (s[i + h] == s[j + h]) h++;
             lcp[rk[i]] = h;
@@ -96,8 +97,8 @@ struct SuffixArray {
         return {lo, hi};
     }
 
-    // LCS entre duas strings. Usa separador que não aparece em nenhuma delas.
-    static string lcs(const string& a, const string& b, char sep = '$') {
+    // LCS entre duas strings. sep deve ser != '$' e não aparecer em a/b.
+    static string lcs(const string& a, const string& b, char sep = 1) {
         SuffixArray suf(a + sep + b);
         int m = a.size(), best = 0, pos = 0;
         for (int i = 1; i < (int)suf.sa.size(); i++) {

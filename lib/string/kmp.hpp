@@ -31,6 +31,6 @@ vector<int> kmp_search(const string& pattern, const string& text) {
     int p = pattern.size();
     vector<int> res;
     for (int i = p + 1; i < (int)s.size(); i++)
-        if (f[i] == p) res.push_back(i - 2 * p - 1);
+        if (f[i] == p) res.push_back(i - 2 * p);
     return res;
 }

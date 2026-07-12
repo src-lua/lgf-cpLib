@@ -47,6 +47,7 @@ vector<int> euler(vector<vector<pair<int,int>>>& adj, int s) {
         }
     }
 
+    if ((int)path.size() != E + 1) return {};
     reverse(path.begin(), path.end());
     return path;
 }

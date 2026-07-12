@@ -4,7 +4,7 @@ using namespace std;
 using ll = long long;
 
 /* Linear Basis (Base Linear XOR)
- * Complexidade: O(B) por operação, onde B = número de bits (64 para ll)
+ * Complexidade: O(B) por operação, onde B = número de bits (63 para ll)
  * Memória: O(B)
  *
  * Métodos:

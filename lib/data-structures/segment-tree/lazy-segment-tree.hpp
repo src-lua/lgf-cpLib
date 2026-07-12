@@ -39,11 +39,10 @@ struct LazySegmentTree {
     vector<NODE> seg;
     vector<TAG> lazy;
 
-    LazySegmentTree(int n) : N(n), seg(4 * n), lazy(4 * n) {}
+    explicit LazySegmentTree(int n) : N(n), seg(4 * n), lazy(4 * n) {}
 
     template<typename T>
-    LazySegmentTree(const vector<T>& v)
-        : N(v.size()), seg(4 * v.size()), lazy(4 * v.size()) {
+    LazySegmentTree(const vector<T>& v) : LazySegmentTree((int)v.size()) {
         build(1, 0, N - 1, v);
     }
 

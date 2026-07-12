@@ -47,7 +47,7 @@ struct TwoSat {
         ans.assign(n, -1);
         for (int i = 0; i < n; i++) {
             if (t.comp[2 * i] == t.comp[2 * i + 1]) return {false, {}};
-            ans[i] = t.comp[2 * i] > t.comp[2 * i + 1] ? 1 : 0;
+            ans[i] = t.comp[2 * i] < t.comp[2 * i + 1] ? 1 : 0;
         }
         return {true, ans};
     }

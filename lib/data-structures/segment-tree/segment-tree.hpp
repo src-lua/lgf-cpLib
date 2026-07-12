@@ -20,8 +20,8 @@ struct Node {
 
     // Para Point Set: val = v;
     // Para Point Add: val += v;
-    inline void apply(int v) {
-        val = v; 
+    inline void apply(ll v) {
+        val = v;
     }
 };
 */
@@ -31,10 +31,10 @@ struct SegTree {
     int N;
     vector<NODE> seg;
 
-    SegTree(int n) : N(n), seg(4 * n) {}
+    explicit SegTree(int n) : N(n), seg(4 * n) {}
 
     template<typename T>
-    SegTree(const vector<T>& v) : N(v.size()), seg(4 * v.size()) {
+    SegTree(const vector<T>& v) : SegTree((int)v.size()) {
         build(1, 0, N - 1, v);
     }
 
@@ -50,7 +50,8 @@ struct SegTree {
         seg[no] = NODE::merge(seg[no << 1], seg[(no << 1) | 1]);
     }
 
-    void update(int no, int l, int r, int idx, int val) {
+    template<typename V>
+    void update(int no, int l, int r, int idx, V val) {
         if (l == r) {
             seg[no].apply(val);
             return;
@@ -69,6 +70,7 @@ struct SegTree {
                            query((no << 1) | 1, m + 1, r, a, b));
     }
 
-    void update(int idx, int val) { update(1, 0, N - 1, idx, val); }
+    template<typename V>
+    void update(int idx, V val) { update(1, 0, N - 1, idx, val); }
     NODE query(int l, int r) { return query(1, 0, N - 1, l, r); }
 };

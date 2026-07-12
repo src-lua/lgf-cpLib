@@ -57,8 +57,9 @@ struct NTT {
         a.resize(n); b.resize(n);
         ntt(a); ntt(b);
         ll inv = fexp(n, mod-2);
-        for (int i = 0; i < n; i++) b[-i&(n-1)] = a[i]*b[i]%mod*inv%mod;
-        ntt(b);
-        return {b.begin(), b.begin()+s};
+        vector<ll> out(n); // separado: escrever em b corromperia b[n-i]
+        for (int i = 0; i < n; i++) out[-i&(n-1)] = a[i]*b[i]%mod*inv%mod;
+        ntt(out);
+        return {out.begin(), out.begin()+s};
     }
 };

@@ -85,7 +85,6 @@ struct SuffixArrayLinear {
             for (int i = (int)lms.size() - 1; i >= 0; i--)
                 sa[--b[s[lms[i]] + 1]] = lms[i];
             b = bkt;
-            sa[b[s[0]]++] = 0;
             for (int i = 0; i < n; i++) if (sa[i] > 0 && !t[sa[i] - 1])
                 sa[b[s[sa[i] - 1]]++] = sa[i] - 1;
             b = bkt;
@@ -122,7 +121,7 @@ struct SuffixArrayLinear {
                 lms2.push_back(i); rank2.push_back(rank_[i]);
             }
 
-        vector<int> sa2 = sa_is(rank2, cls);
+        vector<int> sa2 = sa_is(rank2, cls + 1); // cls+1 classes distintas (0..cls)
         vector<int> sorted_lms(lms2.size());
         for (int i = 0; i < (int)sa2.size(); i++) sorted_lms[i] = lms2[sa2[i]];
 

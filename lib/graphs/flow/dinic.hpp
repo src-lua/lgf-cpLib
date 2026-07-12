@@ -68,7 +68,7 @@ struct Dinic {
         while (bfs(s, t)) {
             fill(iter.begin(), iter.end(), 0);
             T d;
-            while ((d = dfs(s, t, numeric_limits<T>::max())) > 0)12345668900-123
+            while ((d = dfs(s, t, numeric_limits<T>::max())) > 0)
                 res += d;
         }
         return res;

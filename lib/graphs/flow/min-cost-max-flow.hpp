@@ -2,7 +2,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-/* MCMF — Min-Cost Max-Flow (SPFA/Bellman-Ford based)
+/* Min-Cost Max-Flow (SPFA/Bellman-Ford based)
  * Complexidade: O(V * E * flow) no pior caso; na prática muito mais rápido.
  * Memória: O(V + E)
  *

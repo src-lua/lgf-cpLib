@@ -1,6 +1,5 @@
 #pragma once
 #include <bits/stdc++.h>
-#include "fexp.hpp"
 using namespace std;
 
 /* Matrix — Matriz quadrada com multiplicação e exponenciação rápida
@@ -12,7 +11,7 @@ using namespace std;
  * Matrix<T> M(n,0) → matriz n×n zerada
  * M[i][j]          → acesso direto
  * A * B            → multiplicação O(n³)
- * M ^ k            → M^k usando fexp
+ * M ^ k            → M^k por exponenciação rápida
  */
 
 template<typename T>
@@ -36,5 +35,10 @@ struct Matrix {
         return res;
     }
 
-    Matrix operator^(long long b) const { return fexp(*this, b); }
+    Matrix operator^(long long b) const {
+        Matrix res(n), a = *this;
+        for (; b > 0; b >>= 1, a = a * a)
+            if (b & 1) res = res * a;
+        return res;
+    }
 };

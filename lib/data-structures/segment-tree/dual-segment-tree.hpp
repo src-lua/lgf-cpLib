@@ -29,9 +29,9 @@ struct DualSegTree {
     vector<TAG> lazy;
     vector<T> leaves;
 
-    DualSegTree(int n) : N(n), lazy(4 * n), leaves(n) {}
+    explicit DualSegTree(int n) : N(n), lazy(4 * n), leaves(n) {}
     DualSegTree(const vector<T>& v)
-        : N(v.size()), lazy(4 * v.size()), leaves(v) {}
+        : N((int)v.size()), lazy(4 * v.size()), leaves(v) {}
 
     void push(int no, int l, int r) {
         int e = no << 1; 

@@ -1,6 +1,8 @@
 #pragma once
 #include <bits/stdc++.h>
 using namespace std;
+using ll = long long;
+using ull = unsigned long long;
 
 /* String Hashing (Single e Double Hash)
  * Hash polinomial para comparação de substrings em O(1) após build O(N).
@@ -15,9 +17,6 @@ using namespace std;
  *   h.get(l, r); // hash de s[l..r]
  *   h.get(l, r) == h.get(l2, r2); // compara substrings
  */
-
-using ll = long long;
-using ull = unsigned long long;
 
 /* --- Single Hash --- */
 struct SingleHash {

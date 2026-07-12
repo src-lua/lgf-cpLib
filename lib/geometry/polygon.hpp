@@ -18,7 +18,6 @@ ld polarea(const vector<Point<T>>& poly) {
     return abs((ld)area2(poly)) / 2.0;
 }
 
-
 // 0 = fora, 1 = dentro, 2 = na borda
 // O(n), funciona para qualquer polígono simples (convexo ou côncavo)
 template<typename T>
