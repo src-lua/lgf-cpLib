@@ -2,8 +2,12 @@
 #import "@preview/catppuccin:1.1.0": get-flavor
 #let _ctp = get-flavor("latte").colors
 #let _bw  = sys.inputs.at("bw", default: "false") == "true"
-#let _comment_fill = if _bw { luma(45%) } else { _ctp.overlay1.rgb }
-#let _hash_fill    = if _bw { luma(55%) } else { _ctp.overlay0.rgb }
+#let _comment_fill = if _bw { luma(25%) } else {
+  _ctp.overlay1.rgb.darken(36%)
+}
+#let _hash_fill    = if _bw { luma(25%) } else {
+  _ctp.overlay0.rgb.darken(36%)
+}
 
 #let hash_col_width  = 2.2em
 #let font_size       = 7.8pt
