@@ -41,8 +41,10 @@ run_step "Gerando contents.typ" \
 TYPST_ENTRY="notebook.typ"
 $BW && TYPST_ENTRY="notebook-bw.typ"
 
+BUILD_TIME="$(date '+%d/%m/%Y %H:%M')"
+
 run_step "Compilando PDF" \
-  typst compile --root .. --input bw="$BW" "$TYPST_ENTRY" "$OUTPUT"
+  typst compile --root .. --input bw="$BW" --input build_time="$BUILD_TIME" "$TYPST_ENTRY" "$OUTPUT"
 
 # Done
 printf "\n  ${GREEN}PDF disponivel em: ${OUTPUT#../}${NC}\n"

@@ -1,27 +1,30 @@
 // ── Metadata ─────────────────────────────────────────────────────────────────
 #let university       = "Centro de Informática - UFPE"
 #let university-short = "CIn - UFPE"
-#let teamname         = "Lua | lgf-cplib"
+#let teamname         = "Lua @ lgf-CPLib"
 #let authorname       = "Lua Guimarães Fernandes"
 
 // ── Colors (Catppuccin Latte) ─────────────────────────────────────────────────
 #import "@preview/catppuccin:1.1.0": get-flavor
 #let _ctp       = get-flavor("latte").colors
 #let _bw        = sys.inputs.at("bw", default: "false") == "true"
+#let _build_time = sys.inputs.at("build_time", default: datetime.today().display("[day]/[month]/[year]"))
 #let ctp-text   = if _bw { black } else { _ctp.text.rgb }
 #let ctp-sub0   = _ctp.subtext0.rgb
 #let ctp-surf2  = if _bw { luma(65%) } else { _ctp.surface2.rgb }
 #let ctp-blue   = if _bw { black } else { _ctp.text.rgb }
 #let ctp-teal   = if _bw { black } else { _ctp.blue.rgb }
-#let gray5      = if _bw { black } else { _ctp.overlay0.rgb }
+
+// ── Document metadata (PDF properties) ────────────────────────────────────────
+#set document(title: teamname + " Notebook", author: authorname)
 
 // ── Page setup ───────────────────────────────────────────────────────────────
 // A4 landscape: 841.89 × 595.28 pt
 #set page(
   width: 841.89pt,
   height: 595.28pt,
-  margin: (left: 0.6cm, right: 1.3cm, top: 0.4cm, bottom: 0.4cm),
-  fill: if _bw { white } else { _ctp.base.rgb },
+  margin: (left: 0.6cm, right: 1.3cm, top: 0.6cm, bottom: 0.6cm),
+  fill: white,
   columns: 3,
   header: none,
   footer: none,
@@ -34,16 +37,22 @@
 #set page(header: context {
   set text(size: 7pt, font: "JetBrains Mono", fill: ctp-text)
   let info = box([#university | #authorname])
+  let bt   = box([#_build_time])
   let num  = box(width: 1cm, align(center)[*#counter(page).display()*])
   let si = measure(info)
+  let sbt = measure(bt)
   let sn = measure(num)
   let cx = _sidebar_x + si.height / 2
+  let num_dy = _page_h - sn.height - 0.4cm
   place(top + left, dx: _sidebar_x, dy: 0.4cm,
     rotate(90deg, reflow: false, origin: top + left,
       box(width: _page_h, info)
     )
   )
-  place(top + left, dx: cx - 0.5cm - 4pt, dy: _page_h - sn.height - 0.4cm,
+  place(top + left, dx: _sidebar_x, dy: num_dy - sbt.width - 12pt,
+    rotate(90deg, reflow: false, origin: top + left, bt)
+  )
+  place(top + left, dx: cx - 0.5cm - 5.55pt, dy: num_dy,
     num
   )
 })
@@ -77,9 +86,6 @@
 }
 
 // ── Content (colunas no nível da página) ─────────────────────────────────────
-#place(top + left, dx: 8pt, dy: 1pt,
-  text(size: 6pt, fill: gray5)[#datetime.today().display("[day]/[month]/[year]")]
-)
 #align(center)[
   #grid(columns: (auto, auto, auto), column-gutter: 6pt, align: horizon,
     text(size: 11pt, weight: "bold")[#teamname | #university-short],

@@ -1,4 +1,4 @@
-use crate::config::{HASH_LEN, USE_HASH};
+use crate::config::{HASH_LEN, THEORY_TEXT_SIZE, USE_HASH};
 use crate::hasher::annotate_with_hashes;
 use crate::processor::process_file;
 use crate::types::{FileKind, Section};
@@ -24,7 +24,10 @@ pub fn render(sections: &[Section]) -> String {
 
             // .typ files: include directly (extra/ content)
             if kind == FileKind::Typ {
-                out.push_str(&format!("#include \"{}\"\n\n", sub.path));
+                out.push_str(&format!(
+                    "#[\n  #set text(size: {})\n  #include \"{}\"\n]\n\n",
+                    THEORY_TEXT_SIZE, sub.path
+                ));
                 continue;
             }
 

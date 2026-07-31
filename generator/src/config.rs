@@ -1,5 +1,6 @@
 pub const USE_HASH: bool = true;
 pub const HASH_LEN: usize = 3;
+pub const THEORY_TEXT_SIZE: &str = "6.35pt";
 
 pub const IGNORED_LINES: &[&str] = &[
     "#include <bits/stdc++.h>",

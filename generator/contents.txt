@@ -12,7 +12,9 @@ $
 
 [Data Structures]
 ../lib/data-structures/dsu.hpp                                              $ Dsu
+../lib/data-structures/dsu-rollback.hpp                                     $ Dsu Rollback
 ../lib/data-structures/mo.hpp                                               $ Mo
+../lib/data-structures/parallel-bs.hpp                                      $ Parallel Binary Search
 ../lib/data-structures/fenwick-tree/fenwick-tree.hpp                        $ Fenwick Tree
 ../lib/data-structures/fenwick-tree/fenwick-tree2d.hpp                      $ Fenwick Tree 2D
 ../lib/data-structures/fenwick-tree/dynamic-fenwick-tree2d.hpp              $ Dynamic Fenwick Tree 2D
