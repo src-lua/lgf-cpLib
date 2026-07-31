@@ -8,7 +8,7 @@ using namespace std;
  * Métodos:
  * - find(i):    raiz do conjunto de i.
  * - join(i, j): une os conjuntos; sempre empilha no histórico
- *               (mesmo se já estavam unidos). Retorna true se uniu.
+ *            (mesmo se já estavam unidos). Retorna true se uniu.
  * - rollback(): desfaz o último join (empilhado ou fantasma).
  * - same(i, j): verifica se i e j estão no mesmo conjunto.
  * - size(i):    tamanho do conjunto de i.
