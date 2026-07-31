@@ -19,7 +19,7 @@ struct DSU {
   vector<int> sz;
   int num_sets;
 
-  DSU(int _n) : n(_n), parent(_n), sz(_n, 1), num_sets(_n) {
+  DSU(int n) : n(n), parent(n), sz(n, 1), num_sets(n) {
     iota(parent.begin(), parent.end(), 0);
   }
 

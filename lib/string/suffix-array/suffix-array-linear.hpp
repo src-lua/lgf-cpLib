@@ -7,7 +7,7 @@ using namespace std;
  *
  * Campos públicos após construção:
  * sa[i] = índice do i-ésimo sufixo em ordem lexicográfica
- *   rk[i]  = rank do sufixo s[i..] (inverso de sa)
+ * rk[i] = rank do sufixo s[i..] (inverso de sa)
  * lcp[i] = tamanho do LCP entre sa[i-1] e sa[i]; lcp[0] = 0
  *
  * Métodos:
@@ -104,7 +104,7 @@ struct SuffixArrayLinear {
       if (is_lms(i)) lms.push_back(i);
     vector<int> sa = induced_sort(lms);
 
-    vector<int> rank_(n, -1);
+    vector<int> rk(n, -1);
     int cls = 0;
     for (int i = 0, prev = -1; i < n; i++) {
       if (!is_lms(sa[i])) continue;
@@ -121,15 +121,15 @@ struct SuffixArrayLinear {
         }
         if (diff) cls++;
       }
-      rank_[sa[i]] = cls;
+      rk[sa[i]] = cls;
       prev = sa[i];
     }
 
     vector<int> lms2, rank2;
     for (int i = 0; i < n; i++)
-      if (rank_[i] != -1) {
+      if (rk[i] != -1) {
         lms2.push_back(i);
-        rank2.push_back(rank_[i]);
+        rank2.push_back(rk[i]);
       }
 
     // Há cls+1 classes distintas, numeradas de 0 a cls.
