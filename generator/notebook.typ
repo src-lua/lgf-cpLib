@@ -1,7 +1,7 @@
 // ── Metadata ─────────────────────────────────────────────────────────────────
 #let university       = "Centro de Informática - UFPE"
 #let university-short = "CIn - UFPE"
-#let teamname         = "Lua @ lgf-CPLib"
+#let teamname         = "Lua @ MFP"
 #let authorname       = "Lua Guimarães Fernandes"
 
 // ── Colors (Catppuccin Latte) ─────────────────────────────────────────────────

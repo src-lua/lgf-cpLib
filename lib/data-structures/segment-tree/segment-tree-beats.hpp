@@ -112,6 +112,7 @@ struct SegTreeBeats {
 
   void update(int no, int l, int r, int a, int b, const TAG &v) {
     if (b < l || r < a || seg[no].break_condition(v)) return;
+    if (l == r) return seg[no].apply(v, l, r), void();
     if (a <= l && r <= b && seg[no].tag_condition(v)) {
       seg[no].apply(v, l, r);
       lazy[no].compose(v);
