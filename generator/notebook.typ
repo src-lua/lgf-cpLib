@@ -1,8 +1,8 @@
 // ── Metadata ─────────────────────────────────────────────────────────────────
 #let university       = "Centro de Informática - UFPE"
 #let university-short = "CIn - UFPE"
-#let teamname         = "Lua @ MFP"
-#let authorname       = "Lua Guimarães Fernandes"
+#let teamname         = "A Lua me traiu"
+#let authorname       = "A Lua me traiu | The 2026 ICPC South America Brazil First Phase"
 
 // ── Colors (Catppuccin Latte) ─────────────────────────────────────────────────
 #import "@preview/catppuccin:1.1.0": get-flavor
